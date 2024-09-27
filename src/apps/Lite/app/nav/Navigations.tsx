@@ -9,7 +9,7 @@ import HomeScreen from '../screens/HomeScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import ChatScreen from '../screens/ChatScreen';
 import SettingsScreen from '../screens/SettingsScreen';
-import CustomDrawerComponene from '../components/CustomDrawer';
+import DrawerComponent from '../components/CustomDrawer';
 
 const Drawer = createDrawerNavigator();
 
@@ -19,8 +19,7 @@ export default function Navigations() {
         <NavigationContainer>
         <Drawer.Navigator 
         initialRouteName='Home'
-        //drawerContent={(props) => <DrawerContent {...props} /> }
-        drawerContent={(props) => <CustomDrawerComponene {...props}/>}
+        drawerContent={(props) => <DrawerComponent {...props}/>}
         screenOptions={{
           headerStyle: {
             backgroundColor: '#c6cbef'

@@ -1,5 +1,5 @@
 import { FlatList, Image, StyleSheet, Text, View } from 'react-native';
-import { Contact, ContactService } from '../services/contactService';
+import { Contact, ContactService } from '../services/ContactService';
 import { useEffect, useState } from 'react';
 import PlateComponent from '../components/PlateContent';
 

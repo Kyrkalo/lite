@@ -1,9 +1,5 @@
 import { createDrawerNavigator, DrawerContentComponentProps, DrawerContentScrollView, DrawerItemList } from "@react-navigation/drawer";
 import { View, Text, StyleSheet, Image } from "react-native";
-import HomeScreen from "../screens/HomeScreen";
-import ChatScreen from "../screens/ChatScreen";
-import ProfileScreen from "../screens/ProfileScreen";
-import SettingsScreen from "../screens/SettingsScreen";
 import { useEffect, useState } from "react";
 import IProfileData, { ProfileService } from "../services/profileService";
 
