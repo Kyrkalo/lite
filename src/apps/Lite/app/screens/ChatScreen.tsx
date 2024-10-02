@@ -1,13 +1,13 @@
 import { FlatList, Image, StyleSheet, Text, View } from 'react-native';
-import { ContactService } from '../services/contactService';
 import { useEffect, useState } from 'react';
 import PlateComponent from '../components/PlateContent';
 import { IContact } from '../repositories/contactRepository';
+import { useContactService } from '../hooks/useServices';
 
 
 export default function ChatScreen() {
 
-    const contactService = new ContactService();
+    const contactService = useContactService();
 
     const [contacts, setContacts] = useState<IContact[]>([]);
 
