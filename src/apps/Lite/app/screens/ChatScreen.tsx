@@ -1,24 +1,26 @@
 import { FlatList, Image, StyleSheet, Text, View } from 'react-native';
-import { Contact, ContactService } from '../services/contactService';
+import { ContactService } from '../services/contactService';
 import { useEffect, useState } from 'react';
 import PlateComponent from '../components/PlateContent';
+import { IContact } from '../repositories/contactRepository';
 
 
 export default function ChatScreen() {
 
     const contactService = new ContactService();
 
-    const [contacts, setContacts] = useState<Contact[]>([]);
+    const [contacts, setContacts] = useState<IContact[]>([]);
 
     useEffect(() => {
-        const loadContacts = () => {
-            var response:Contact[] = [];
+        const loadContacts = async () => {
+            var response: IContact[] = [];
             try{
-                response = contactService.getContacts();
+                response = await contactService.getAll();
+                console.log(response)
             }
             catch(error)
             {
-
+                console.log(error)
             }
             finally
             {
@@ -34,12 +36,12 @@ export default function ChatScreen() {
         <FlatList
         style={styles.list}
             data={contacts}
-            keyExtractor={(item) => item.id}
+            keyExtractor={(item) => item.username}
             renderItem={({ item }) => (
             <PlateComponent 
-                id={item.id} 
-                name={item.name} 
-                title={item.title}>
+                id={item.id}
+                photo={item.photo}
+                username={item.username}>
             </PlateComponent>
             
             )}

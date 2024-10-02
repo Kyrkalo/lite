@@ -1,16 +1,15 @@
-import { FlatList, Image, StyleSheet, Text, View } from 'react-native';
-import { Contact, ContactService } from '../services/contactService';
-import { useEffect, useState } from 'react';
+import { Image, StyleSheet, Text, View } from 'react-native';
+import { IContact } from '../repositories/contactRepository';
 
-export default function PlateComponent(props: Contact) {
+export default function PlateComponent(props: IContact) {
     return(
         <View style={styles.plate}>
             <View style={styles.photoContainer}>
                 <Image style={styles.photo} source={require('../../assets/logo.png')}></Image>
             </View>
             <View style={styles.content}>
-                <Text style={styles.contact}>{props.title}</Text>
-                <Text style={styles.contact}>{props.name}</Text>
+                {/* <Text style={styles.contact}>{props.title}</Text> */}
+                <Text style={styles.contact}>{props.username}</Text>
             </View>
         </View>
     )
