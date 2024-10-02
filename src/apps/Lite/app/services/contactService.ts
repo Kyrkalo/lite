@@ -1,10 +1,13 @@
+import { AxiosInstance } from "axios";
+import HttpInterceptor from "../interceptors/httpInterceptor";
 import { ContactRepository, IContact } from "../repositories/contactRepository";
 
-export class ContactService {
+export class ContactService extends HttpInterceptor {
 
     private contactRepository: ContactRepository;
 
     constructor() {
+        super('');
         this.contactRepository = new ContactRepository();
     }
 

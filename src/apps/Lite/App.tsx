@@ -1,15 +1,22 @@
 import { StyleSheet, Text, View } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import Navigations from './app/nav/Navigations';
+import { AuthServiceContext, ContactServiceContext } from './app/contexts/serviceContexts';
+import { AuthService } from './app/services/authService';
+import { ContactService } from './app/services/contactService';
 
-
+const authService = new AuthService();
+const contactService = new ContactService();
 
 export default function App() {
   return (
-    <SafeAreaProvider>
-      <Navigations></Navigations>
-      
-    </SafeAreaProvider>
+    <AuthServiceContext.Provider value={authService}>
+      <ContactServiceContext.Provider value={contactService}>
+        <SafeAreaProvider>
+          <Navigations></Navigations>      
+        </SafeAreaProvider>
+      </ContactServiceContext.Provider>
+    </AuthServiceContext.Provider>
   );
 }
 
