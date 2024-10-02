@@ -1,5 +1,7 @@
 import * as SQLite from 'expo-sqlite';
 
+
+
 export interface IContact {
     id?: number;
     username: string;
