@@ -3,3 +3,7 @@
 ################################################################################
 
 /src/server/Lite/.vs/Lite
+/.vs/lite/v17
+/src/server/Lite/Lite.Api/bin
+/src/server/Lite/Lite.Api/debug
+/.vs
