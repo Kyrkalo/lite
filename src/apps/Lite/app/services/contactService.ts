@@ -1,4 +1,3 @@
-import { AxiosInstance } from "axios";
 import HttpInterceptor from "../interceptors/httpInterceptor";
 import { ContactRepository, IContact } from "../repositories/contactRepository";
 

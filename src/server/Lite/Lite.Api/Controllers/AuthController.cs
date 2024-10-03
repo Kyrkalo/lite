@@ -1,4 +1,4 @@
-﻿using Lite.Api.Services;
+﻿using Lite.Api.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Lite.Api.Controllers;

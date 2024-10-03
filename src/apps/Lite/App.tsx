@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import Navigations from './app/nav/Navigations';
+import Navigations from './app/navigation/Navigations';
 import { AuthServiceContext, ContactServiceContext } from './app/contexts/serviceContexts';
 import { AuthService } from './app/services/authService';
 import { ContactService } from './app/services/contactService';
