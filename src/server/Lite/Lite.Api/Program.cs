@@ -1,6 +1,7 @@
 using AspNetCore.Identity.MongoDbCore.Models;
 using Lite.Api.Models;
 using Lite.Api.Services;
+using Lite.Api.Services.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;

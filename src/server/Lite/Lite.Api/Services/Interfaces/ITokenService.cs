@@ -1,7 +1,7 @@
 ﻿using Lite.Api.Models;
 using System.Security.Claims;
 
-namespace Lite.Api.Services;
+namespace Lite.Api.Services.Interfaces;
 
 public interface ITokenService
 {
