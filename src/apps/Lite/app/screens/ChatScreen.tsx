@@ -8,7 +8,6 @@ import { useContactService } from '../hooks/useServices';
 export default function ChatScreen() {
 
     const contactService = useContactService();
-
     const [contacts, setContacts] = useState<IContact[]>([]);
 
     useEffect(() => {
@@ -29,7 +28,7 @@ export default function ChatScreen() {
             
         };
         loadContacts();
-    }, []);
+    }, [contactService]);
 
     return(
         <View style={styles.container}>
