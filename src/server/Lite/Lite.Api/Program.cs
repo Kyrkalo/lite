@@ -1,55 +1,19 @@
-using AspNetCore.Identity.MongoDbCore.Models;
-using Lite.Api.Models;
-using Lite.Api.Services;
-using Lite.Api.Services.Interfaces;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Configuration;
+using Lite.Api.Middleware;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
+using Microsoft.Extensions.Hosting;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
 var configuration = builder.Configuration;
 
-builder.Services.AddScoped<ITokenService, TokenService>();
+builder.Services.AddControllers();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 
-IConfigurationSection jwtSettings = configuration.GetSection("JwtSettings");
-IConfigurationSection mongoSettings = configuration.GetSection("MongoDbSettings");
-var key = Encoding.ASCII.GetBytes(jwtSettings["Secret"]);
-
-builder.Services.AddIdentity<ApplicationUser, MongoIdentityRole>()
-.AddMongoDbStores<ApplicationUser, MongoIdentityRole, Guid>(mongoSettings["ConnectionString"], mongoSettings["DatabaseName"])
-.AddDefaultTokenProviders();
-
-// JWT configuration
-
-builder.Services.AddAuthentication(options =>
-{
-    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-})
-.AddJwtBearer(options =>
-{
-    options.RequireHttpsMetadata = false;
-    options.SaveToken = true;
-    options.TokenValidationParameters = new TokenValidationParameters
-    {
-        ValidateIssuerSigningKey = true,
-        IssuerSigningKey = new SymmetricSecurityKey(key),
-        ValidateIssuer = false,
-        ValidateAudience = false,
-        RequireExpirationTime = true,
-        ValidateLifetime = true
-    };
-});
+builder.SetupServices();
+builder.SetupMongoDbIdentity(configuration);
+builder.SetupAuthentication(configuration);
 
 var app = builder.Build();
 

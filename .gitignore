@@ -45,3 +45,5 @@ yarn-error.*
 # typescript
 *.tsbuildinfo
 *.csproj.user
+/src/server/Lite/.vs/ProjectEvaluation
+/src/server/Lite/Lite.Api/obj

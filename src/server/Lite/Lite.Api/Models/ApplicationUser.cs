@@ -1,4 +1,5 @@
 ﻿using AspNetCore.Identity.MongoDbCore.Models;
+using System;
 
 namespace Lite.Api.Models;
 

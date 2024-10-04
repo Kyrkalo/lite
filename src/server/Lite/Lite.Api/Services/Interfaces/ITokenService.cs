@@ -7,5 +7,5 @@ public interface ITokenService
 {
     ClaimsPrincipal Validate(string token);
 
-    string Generate(ApplicationUser user);
+    string Generate(string id, string username);
 }
