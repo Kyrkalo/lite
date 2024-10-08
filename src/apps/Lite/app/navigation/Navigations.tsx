@@ -11,6 +11,7 @@ import ChatScreen from '../screens/ChatScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import CustomDrawerComponene from '../components/CustomDrawer';
 import InviteScreen from '../screens/InviteScree';
+import LoginScreen from '../screens/LoginScreen';
 
 const Drawer = createDrawerNavigator();
 
@@ -38,6 +39,7 @@ export default function Navigations() {
           <Drawer.Screen name="Profile" component={ProfileScreen} />
           <Drawer.Screen name="Invite" component={InviteScreen} />
           <Drawer.Screen name="Chat" component={ChatScreen} />
+          <Drawer.Screen name="Login" component={LoginScreen} />
           <Drawer.Screen name="Settings" 
           component={SettingsScreen}
           />

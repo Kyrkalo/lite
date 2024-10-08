@@ -1,13 +1,23 @@
 import * as Keychain from 'react-native-keychain';
-import { UserCredentials } from 'react-native-keychain';
+import HttpInterceptor from '../interceptors/httpInterceptor';
+import appConfig from './config';
+import sslPinning from 'react-native-ssl-pinning';
 
-export class AuthService {
+export class AuthService extends HttpInterceptor {
 
-    constructor() { }
+    //certificate = require('./assets/certificate.cer');
+
+    constructor() {
+        super(appConfig.api);
+    }
 
     public hasCredentials = async (): Promise<boolean> => await Keychain.getGenericPassword() ? true : false;
 
-    public login = async (username: string, password: string) => await Keychain.setGenericPassword(username, password);
+    public async login(username: string, password: string) {
+        let instance = this.getInstance();
+        await instance.post('auth/login', {userName: username, password: password});
+        await Keychain.setGenericPassword(username, password);
+    }
 
     public logout = async () => await Keychain.resetGenericPassword();
 }
