@@ -7,16 +7,19 @@ export default class HttpInterceptor {
 
     constructor(url: string) 
     {
-        this.axiosInstance = axios.create({baseURL: url});
+        this.axiosInstance = axios.create({
+            baseURL: url,
+            timeout: 2000
+        });
         this.axiosInstance.interceptors.request.use(this.onRequest, this.onRequestError);
         this.axiosInstance.interceptors.response.use(this.onResponse, this.onResponseError);
     }
 
     private onRequest(config: InternalAxiosRequestConfig): InternalAxiosRequestConfig {
-        var token = `Bearer:`;
-        if (token && config.method != 'OPTIONS') {
-            config.headers?.setAuthorization(token);
-        }
+        // var token = `Bearer:`;
+        // if (token && config.method != 'OPTIONS') {
+        //     config.headers?.setAuthorization(token);
+        // }
         return config;
     }
 
@@ -33,4 +36,6 @@ export default class HttpInterceptor {
         
         return Promise.reject(error);
     }
+
+    public getInstance = () => this.axiosInstance;
 }
