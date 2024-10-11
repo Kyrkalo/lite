@@ -1,10 +1,10 @@
-﻿using Lite.Api.Services.Interfaces;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
+﻿using Lite.Api.Models;
+using Lite.Api.Repositories.Interfaces;
+using Lite.Api.Services.Interfaces;
 using Microsoft.IdentityModel.Tokens;
-using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace Lite.Api.Services;
@@ -13,7 +13,6 @@ public class TokenService : ITokenService
 {
     private readonly ILogger _logger;
     private readonly IConfigurationSection _jwtSettings;
-
     private readonly IConfiguration _configuration;
 
     public TokenService(IConfiguration configuration)
@@ -47,22 +46,42 @@ public class TokenService : ITokenService
         return default;
     }
 
-    public string Generate(string id, string username)
+    public (string token, string refreshToken) Generate(string id, string username)
+    {        
+        var token = GetToken(id, username);
+        var refreshToken = GetRefreshToken();
+        return (token, refreshToken);
+    }
+
+    /// <summary>
+    /// Returns refresh token. This is temporary solution and need to be updated.
+    /// </summary>
+    /// <returns></returns>
+    private string GetRefreshToken()
+    {
+        var randomBytes = new byte[64];
+        using var rng = RandomNumberGenerator.Create();
+        rng.GetBytes(randomBytes);
+        return Convert.ToBase64String(randomBytes);
+    }
+
+    private string GetToken(string id, string username)
     {
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtSettings["Secret"]));
         var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
-        var claims = new[]
-        {
-            new Claim(JwtRegisteredClaimNames.Sub, username),
-            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-            new Claim(ClaimTypes.NameIdentifier, id)
-        };
-        var token = new JwtSecurityToken(
-        claims: claims,
+        var tokenHandler = new JwtSecurityToken(
+        claims: GetClaims(id, username),
         expires: DateTime.Now.AddMinutes(60),
         signingCredentials: creds);
 
-        return new JwtSecurityTokenHandler().WriteToken(token);
+        return new JwtSecurityTokenHandler().WriteToken(tokenHandler);
     }
+
+    private IEnumerable<Claim> GetClaims(string id, string username) => 
+    [
+        new Claim(JwtRegisteredClaimNames.Sub, username),
+        new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+        new Claim(ClaimTypes.NameIdentifier, id)
+    ];
 }

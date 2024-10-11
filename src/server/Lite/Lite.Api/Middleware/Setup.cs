@@ -4,7 +4,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Builder;
 using AspNetCore.Identity.MongoDbCore.Models;
 using Lite.Api.Models;
-using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
@@ -25,6 +24,7 @@ public static class Setup
         builder.Services.AddScoped<ITokenService, TokenService>();
         builder.Services.AddScoped<IUserService, UserService>();
         builder.Services.AddScoped<IRepository<User>,  Repository<User>>();
+        builder.Services.AddScoped<IAuthService, AuthService>();
 
         builder.Services.AddScoped<UserDtoValidator>();
         builder.Services.AddScoped<RegisterDtoValidator>();
@@ -39,7 +39,7 @@ public static class Setup
         builder.Services.AddScoped<IMongoDatabase>(e => 
         {
             MongoClientSettings settings = MongoClientSettings.FromUrl(new MongoUrl(mongoSettings["ConnectionString"]));
-            //settings.SslSettings = new SslSettings() { EnabledSslProtocols = SslProtocols.Tls12 };
+            //settings.SslSettings = new SslSettings() { EnabledSslProtocols = SslProtocols.Default };
             var mongoClient = new MongoClient(settings);
             return mongoClient.GetDatabase(mongoSettings["AppDb"]);
         });

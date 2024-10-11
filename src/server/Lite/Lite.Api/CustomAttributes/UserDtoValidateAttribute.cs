@@ -3,7 +3,6 @@ using Lite.Api.Dtos;
 using Lite.Api.Validators;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using System.Threading.Tasks;
 
 namespace Lite.Api.CustomAttributes;
 

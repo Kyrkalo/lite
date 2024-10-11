@@ -4,6 +4,10 @@ namespace Lite.Api.Models;
 
 public class User
 {
+    [BsonId]
+    [BsonElement("id")]
+    public string Id { get; set; }
+
     [BsonElement("user_name")]
     public string UserName { get; set; }
 
@@ -15,8 +19,4 @@ public class User
 
     [BsonElement("phone")]
     public string Phone { get; set; }
-
-    [BsonId]
-    [BsonElement("id")]
-    public string Id { get; set; }
 }
