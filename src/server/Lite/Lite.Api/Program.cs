@@ -21,6 +21,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseMiddleware<RequestLoggingMiddleware>();
+
 app.UseCors(builder =>
 builder.SetIsOriginAllowed(_ => true)
 .AllowAnyMethod()

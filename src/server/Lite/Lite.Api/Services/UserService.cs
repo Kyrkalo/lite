@@ -3,8 +3,6 @@ using Lite.Api.Repositories.Interfaces;
 using Lite.Api.Services.Interfaces;
 using MongoDB.Bson;
 using MongoDB.Driver;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Lite.Api.Services;
 
