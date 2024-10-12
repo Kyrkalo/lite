@@ -21,7 +21,6 @@ export class ContactRepository {
                         id INTEGER PRIMARY KEY AUTOINCREMENT, 
                         username TEXT UNIQUE, 
                         photo TEXT)`);
-                        console.log(1);
         }
         catch(e) {
             console.log(e);
