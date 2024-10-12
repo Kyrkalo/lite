@@ -1,58 +1,53 @@
 import { useState } from "react";
 import { TouchableOpacity, StyleSheet, Button, View, Text } from "react-native";
-import { TextInput } from "react-native-gesture-handler";
 import { useAuthService } from "../hooks/useServices";
+import PrimaryInput from "../components/PrimaryInput";
+import PrimaryPasswordInput from "../components/PrimaryPasswordInput";
 
 export default function LoginScreen() {
 
     const [details, setDetails] = useState({ username: '', password: '', code: ''});
-    const [enableLogin, setEnableLogin] = useState(false);
+    const enableLogin = details.username.trim() != '' && details.password.trim() != ''
     const authService = useAuthService();
 
-    const onClickLoginButton = function(e: any) {
-        console.log(details);
-        authService.login(details.username, details.password)
-        .then(l=> {console.log(l)}).catch(l => {
-            console.log(l.stack)
-        });
+    const onClickLoginButton = async function(e: any) {
+        await authService.login(details.username, details.password);
     }
 
-    const handleUserNameInput = function(e: any) {
-        setDetails({
-            ...details,
-            username: e
-        })
+    const handleUserNameInput = function(e: any): void {
+        setDetails({ ...details, username: e });
     }
 
     const handlePasswordInput = function(e: any) {
-        setDetails({
-            ...details,
-            password: e
-        })
+        setDetails({ ...details, password: e });
     }
 
     return (
     <View style={styles.container}>
         <View style={styles.centeredView}>
-        <TextInput 
-            onChangeText={handleUserNameInput}
-            style={styles.input} 
-            returnKeyType="next"
-            placeholder="user name"/>
-        <TextInput 
-            onChangeText={handlePasswordInput}
-            style={styles.password} 
-            blurOnSubmit={false}
-            secureTextEntry={true}
-            returnKeyType="next"
-            placeholder="password"/>
-        
+        <PrimaryInput
+            value={details.username}
+            placeholder="user name"
+            returnKey="next"
+            onChange={handleUserNameInput}/>
+        <PrimaryPasswordInput
+            onChange={handlePasswordInput}
+            returnKey="next"
+            placeholder="password"
+        />        
 
-        <TouchableOpacity style={styles.loginButton}  onPress={onClickLoginButton}>
+        <TouchableOpacity
+        style={[
+            styles.loginButton,
+            {
+                backgroundColor: enableLogin ? '#c6cbef' : '#A9A9A9'
+            }
+        ]} 
+        disabled={enableLogin}
+        onPress={onClickLoginButton}>
             <Text style={styles.buttonText}>Login</Text>
         </TouchableOpacity>
-        </View>
-        
+        </View>        
     </View>
     );
 }
@@ -89,17 +84,5 @@ const styles = StyleSheet.create({
     buttonText: {
         color: '#FFFFFF', 
         fontSize: 16,
-    },
-    input: {
-        height: 40,
-        margin: 12,
-        borderBottomWidth: 1,        
-        padding: 10,
-    },
-    password: {
-        height: 40,
-        margin: 12,
-        borderBottomWidth: 1,
-        padding: 10,
     }
 });

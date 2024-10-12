@@ -19,7 +19,6 @@ export class UserSettingsRepository {
                         id INTEGER PRIMARY KEY AUTOINCREMENT, 
                         key TEXT UNIQUE, 
                         value TEXT)`);
-                        console.log(1);
         }
         catch(e) {
             console.log(e);
