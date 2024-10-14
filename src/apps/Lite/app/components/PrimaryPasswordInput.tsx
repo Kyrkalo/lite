@@ -1,6 +1,7 @@
 import { ReturnKeyTypeOptions, StyleSheet, TextInput } from "react-native";
 
 interface PasswordProps {
+    name?: string | undefined;
     value?: string | undefined;
     onChange?: (text: string) => void | undefined;
     placeholder?: string | undefined;
