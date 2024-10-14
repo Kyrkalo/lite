@@ -3,8 +3,10 @@ import { TouchableOpacity, View, Text } from "react-native";
 import PrimaryInput from "../components/PrimaryInput";
 import PrimaryPasswordInput from "../components/PrimaryPasswordInput";
 import { styles } from "../styles";
+import PrimaryPhoneInput from "../components/PrimaryPhoneInput";
 
 export default function RegisterScreen() {
+
   const [step, setStep] = useState(1);
 
   const [details, setDetails] = useState({
@@ -31,74 +33,74 @@ export default function RegisterScreen() {
   return (
     <View style={styles.container}>
       <View style={styles.centeredView}>
-        {step === 1 &&(
-            <>
-                <PrimaryInput
-                value={details.username}
-                placeholder="user name"
-                returnKey="next"
-                onChange={(value) => handleInput("username", value)}
-                />
-                <PrimaryInput
-                  value={details.username}
-                  placeholder="email"
-                  returnKey="next"
-                  onChange={(value) => handleInput("email", value)}
-                />
-            </>
+        {step === 1 && (
+          <>
+            <PrimaryPhoneInput
+              value={details.username}
+              placeholder="phone"
+              returnKey="next"
+              onChange={(value) => handleInput("phone", value)}
+            />
+            <PrimaryInput
+              value={details.username}
+              placeholder="user name"
+              returnKey="next"
+              onChange={(value) => handleInput("username", value)}
+            />
+            <PrimaryInput
+              value={details.username}
+              placeholder="email"
+              returnKey="next"
+              onChange={(value) => handleInput("email", value)}
+            />
+          </>
         )}
         {step === 2 && (
-            <>
-                <PrimaryPasswordInput
-                onChange={(value) => handleInput("password", value)}
-                returnKey="next"
-                placeholder="password"
-                />
-                <PrimaryPasswordInput
-                onChange={(value) => handleInput("confirmPassword", value)}
-                returnKey="next"
-                placeholder="confirm password"
-                />
-            </>
+          <>
+            <PrimaryPasswordInput
+              onChange={(value) => handleInput("password", value)}
+              returnKey="next"
+              placeholder="password"
+            />
+            <PrimaryPasswordInput
+              onChange={(value) => handleInput("confirmPassword", value)}
+              returnKey="next"
+              placeholder="confirm password"
+            />
+          </>
         )}
-        {/* <PrimaryInput
-          value={details.username}
-          placeholder="phone"
-          returnKey="next"
-          onChange={(value) => handleInput("phone", value)}
-        /> */}
         <View style={styles.row}>
-            {step !== 1 && (
-                <>
-                <TouchableOpacity
+          {step !== 1 && (
+            <>
+              <TouchableOpacity
                 style={[
-                    styles.backButton,
-                    {
+                  styles.backButton,
+                  {
                     //backgroundColor: enableLogin ? '#c6cbef' : '#A9A9A9'
-                    },
+                  },
                 ]}
                 //disabled={enableLogin}
                 onPress={handlePrevtStep}
-                >
-                    <Text style={styles.buttonText}>Back</Text>
-                </TouchableOpacity>
+              >
+                <Text style={styles.buttonText}>Back</Text>
+              </TouchableOpacity>
             </>
-            )}
+          )}
 
-            <TouchableOpacity
+          <TouchableOpacity
             style={[
-                styles.nextButton,
-                {
+              styles.nextButton,
+              {
                 //backgroundColor: enableLogin ? '#c6cbef' : '#A9A9A9'
-                },
+              },
             ]}
             //disabled={enableLogin}
             onPress={handleNextStep}
-            >
+          >
             <Text style={styles.buttonText}>Next</Text>
-            </TouchableOpacity>
+          </TouchableOpacity>
         </View>
-      </View>      
+      </View>
     </View>
   );
 }
