@@ -1,7 +1,7 @@
 import React from "react";
 import { TextInput, StyleSheet, ReturnKeyTypeOptions } from "react-native";
 
-interface InputProps {
+export interface InputProps {
     name?: string | undefined;
     value?: string | undefined;
     onChange?: (text: string) => void | undefined;
