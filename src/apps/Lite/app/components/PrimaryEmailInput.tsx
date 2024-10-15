@@ -1,18 +1,8 @@
 import React from "react";
 import { TextInput, StyleSheet, ReturnKeyTypeOptions, Text } from "react-native";
+import { InputProps } from "./PrimaryInput";
 
-export interface InputProps {
-    name?: string | undefined;
-    value?: string | undefined;
-    onChange?: (text: string) => void | undefined;
-    placeholder?: string | undefined;
-    returnKey?: ReturnKeyTypeOptions | undefined;
-    blurOnSubmit?: boolean | undefined;
-    error?: string | undefined;
-    isRequired?: boolean | undefined;
-}
-
-export default function PrimaryInput(props: InputProps) {
+export default function PrimaryEmailInput(props: InputProps) {
 
     return (
         <>

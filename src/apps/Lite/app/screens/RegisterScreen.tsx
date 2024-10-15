@@ -1,9 +1,11 @@
 import React, { useState } from "react";
-import { TouchableOpacity, View, Text } from "react-native";
+import { View } from "react-native";
 import PrimaryInput from "../components/PrimaryInput";
 import PrimaryPasswordInput from "../components/PrimaryPasswordInput";
 import { globalStyles } from "../styles";
 import PrimaryPhoneInput from "../components/PrimaryPhoneInput";
+import PrimaryButton from "../components/PrimaryButton";
+import PrimaryEmailInput from "../components/PrimaryEmailInput";
 
 export default function RegisterScreen() {
   const [step, setStep] = useState(1);
@@ -151,7 +153,7 @@ export default function RegisterScreen() {
               isRequired={true}
               onChange={(value) => handleInput("username", value)}
             />
-            <PrimaryInput
+            <PrimaryEmailInput
               placeholder="email"
               returnKey="next"
               error={error.email}
@@ -180,19 +182,17 @@ export default function RegisterScreen() {
         )}
         <View style={globalStyles.row}>
           {step !== 1 && (
-            <TouchableOpacity
-              style={globalStyles.backButton}
+            <PrimaryButton 
+              text="Back"
               onPress={handlePrevtStep}
-            >
-              <Text style={globalStyles.buttonText}>Back</Text>
-            </TouchableOpacity>
+              buttonStyle={globalStyles.backButton} 
+              textStyle={globalStyles.buttonText}/>
           )}
-          <TouchableOpacity
-            style={globalStyles.nextButton}
-            onPress={handleNextStep}
-          >
-            <Text style={globalStyles.buttonText}>Next</Text>
-          </TouchableOpacity>
+           <PrimaryButton 
+              text="Next"
+              onPress={handleNextStep}
+              buttonStyle={globalStyles.nextButton} 
+              textStyle={globalStyles.buttonText}/>
         </View>
       </View>
     </View>
