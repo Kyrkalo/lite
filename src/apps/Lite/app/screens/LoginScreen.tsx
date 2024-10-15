@@ -3,7 +3,7 @@ import { TouchableOpacity, View, Text, StyleSheet } from "react-native";
 import { useAuthService } from "../hooks/useServices";
 import PrimaryInput from "../components/PrimaryInput";
 import PrimaryPasswordInput from "../components/PrimaryPasswordInput";
-import { styles } from "../styles";
+import { globalStyles } from "../styles";
 
 
 export default function LoginScreen() {
@@ -23,8 +23,8 @@ export default function LoginScreen() {
     }
 
     return (
-    <View style={styles.container}>
-        <View style={styles.centeredView}>
+    <View style={globalStyles.container}>
+        <View style={globalStyles.centeredView}>
         <PrimaryInput
             value={details.username}
             placeholder="user name"
@@ -36,14 +36,14 @@ export default function LoginScreen() {
             placeholder="password"/>
         <TouchableOpacity
             style={[
-                styles.loginButton,
+                globalStyles.loginButton,
                 {
                     backgroundColor: enableLogin ? '#c6cbef' : '#A9A9A9'
                 }
             ]} 
             disabled={enableLogin}
             onPress={onClickLoginButton}>
-                <Text style={styles.buttonText}>Login</Text>
+                <Text style={globalStyles.buttonText}>Login</Text>
         </TouchableOpacity>
         </View>        
     </View>
