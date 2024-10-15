@@ -1,6 +1,6 @@
 import { TouchableOpacity, StyleSheet, Button, View, Text } from "react-native";
 
-export const styles = StyleSheet.create({
+export const globalStyles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'center', 

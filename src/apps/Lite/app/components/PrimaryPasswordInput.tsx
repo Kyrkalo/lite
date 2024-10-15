@@ -1,4 +1,5 @@
-import { ReturnKeyTypeOptions, StyleSheet, TextInput } from "react-native";
+import React from "react";
+import { ReturnKeyTypeOptions, StyleSheet, TextInput, Text } from "react-native";
 
 interface PasswordProps {
     name?: string | undefined;
@@ -7,17 +8,22 @@ interface PasswordProps {
     placeholder?: string | undefined;
     returnKey?: ReturnKeyTypeOptions | undefined;
     blurOnSubmit?: boolean | undefined;
+    error?: string | undefined;
+    isRequired?: boolean | undefined;
 }
 
 export default function PrimaryPasswordInput(props: PasswordProps) {
     return (
-        <TextInput 
-            onChangeText={props.onChange}
-            style={styles.password} 
-            blurOnSubmit={props.blurOnSubmit ?? false}
-            secureTextEntry={true}
-            returnKeyType={props.returnKey}
-            placeholder={props.placeholder}/>
+        <>        
+            <TextInput 
+                onChangeText={props.onChange}
+                style={styles.password} 
+                blurOnSubmit={props.blurOnSubmit ?? false}
+                secureTextEntry={true}
+                returnKeyType={props.returnKey}
+                placeholder={props.placeholder}/>
+            { props.isRequired && props.error ? <Text>{props.error}</Text> : null }
+        </>
     );
 }
 
