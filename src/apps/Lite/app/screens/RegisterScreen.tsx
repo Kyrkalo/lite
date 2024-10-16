@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { View } from "react-native";
 import PrimaryInput from "../components/PrimaryInput";
 import PrimaryPasswordInput from "../components/PrimaryPasswordInput";
@@ -26,6 +26,8 @@ export default function RegisterScreen() {
     email: "",
   });
 
+  const emailRef = useRef<any>(null);
+
   const validatePhone = (): boolean => {
     const valid = details.phone?.length >= 10;
     setError((prevError) => ({
@@ -40,16 +42,6 @@ export default function RegisterScreen() {
     setError((prevError) => ({
       ...prevError,
       username: valid ? '' : 'Username must be at least 5 characters long.',
-    }));
-    return valid;
-  };
-
-  const validateEmail = (): boolean => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const valid = emailRegex.test(details.email);
-    setError((prevError) => ({
-      ...prevError,
-      email: valid ? '' : 'Valid email is required.',
     }));
     return valid;
   };
@@ -110,7 +102,7 @@ export default function RegisterScreen() {
       switch (prevStep) {
         case 1:
           const isUserNameValid = validateUsername();
-          const isEmailValid = validateEmail();
+          const isEmailValid  = emailRef.current?.validate();
           const isPhoneValid = validatePhone();
           if ( isUserNameValid &&  isEmailValid && isPhoneValid) {
             return prevStep + 1;
@@ -154,9 +146,11 @@ export default function RegisterScreen() {
               onChange={(value) => handleInput("username", value)}
             />
             <PrimaryEmailInput
+              ref={emailRef}
+              value={details.email}
               placeholder="email"
               returnKey="next"
-              error={error.email}
+              error="Valid email is required."
               isRequired={true}
               onChange={(value) => handleInput("email", value)}
             />
