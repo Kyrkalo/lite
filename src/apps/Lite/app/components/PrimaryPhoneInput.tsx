@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { InputProps } from "./PrimaryInput";
+
 import { TextInput, StyleSheet, Text } from "react-native";
+import { InputProps } from "../interfaces/props";
 
 export default function PrimaryPhoneInput(props: InputProps) {
   return (
