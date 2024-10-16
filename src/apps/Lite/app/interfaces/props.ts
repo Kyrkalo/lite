@@ -18,6 +18,7 @@ export interface PasswordProps {
     value?: string | undefined;
     onChange?: (text: string) => void | undefined;
     placeholder?: string | undefined;
+    confirmPlaceholder?: string | undefined;
     returnKey?: ReturnKeyTypeOptions | undefined;
     blurOnSubmit?: boolean | undefined;
     error?: string | undefined;

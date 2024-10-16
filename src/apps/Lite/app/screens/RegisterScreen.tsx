@@ -30,31 +30,29 @@ export default function RegisterScreen() {
   };
 
   const handleNextStep = function () {
-    setStep((prevStep) => {
-      switch (prevStep) {
-        case 1:
-
-          const isUserNameValid = usernameRef.current?.validate();
-          const isEmailValid  = emailRef.current?.validate();
-          const isPhoneValid = phoneRef.current?.validate();
-          if ( isUserNameValid && isEmailValid && isPhoneValid) {
-            return prevStep + 1;
-          }
-          break;
-        case 2:
-          const isPassworValid = passwordRef.current?.validate();
-          const isConfirmPasswordValid = confirmPasswordRef.current?.validate();
-          if (isPassworValid && isConfirmPasswordValid) {
-            return prevStep + 1;
-          }
-          break;
-        case 3:
-          return prevStep; 
+    let currentStep = step;
+    switch(currentStep) {
+      case 1:
+        const isUserNameValid = usernameRef.current?.validate();
+        const isEmailValid  = emailRef.current?.validate();
+        const isPhoneValid = phoneRef.current?.validate();
+        if ( isUserNameValid && isEmailValid && isPhoneValid) {
+          currentStep = currentStep + 1;
+        }
+        break;
+      case 2:
+        const isPassworValid = passwordRef.current?.validate();
+        const isConfirmPasswordValid = confirmPasswordRef.current?.validate();
+        if (isPassworValid && isConfirmPasswordValid) {
+          currentStep = currentStep + 1;
+        }
+        break;
+      case 3:
         default:
-          return prevStep;
-      }
-      return prevStep;
-    });
+        break;
+    }
+
+    setStep((prevStep) => prevStep = currentStep);
   };
 
   const handlePrevtStep = () => {
@@ -102,14 +100,8 @@ export default function RegisterScreen() {
               onChange={(value) => handleInput("password", value)}
               returnKey="next"
               placeholder="password"
-              isRequired={true}
-            />
-            <PrimaryPasswordInput
-              ref={confirmPasswordRef}
-              value={details.confirmPassword}
-              onChange={(value) => handleInput("confirmPassword", value)}
-              returnKey="next"
-              placeholder="confirm password"
+              min={7}
+              confirmPlaceholder="confirmPlaceholder"              
               isRequired={true}
             />
           </>

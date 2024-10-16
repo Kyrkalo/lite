@@ -5,6 +5,7 @@ import { PasswordProps } from "../interfaces/props";
  function PrimaryPasswordInput(props: PasswordProps, ref: any) {
     
     const [inputError, setInputError] = useState<string | null>(null);
+    const [confirmPasswordInput, setConfirmPassword] = useState<string | null>(null);
     
     const validate = (): boolean => {
 
@@ -26,9 +27,17 @@ import { PasswordProps } from "../interfaces/props";
                 setInputError(prev => prev = props.error ?? `Passwords must have at least one uppercase letter (A-Z).`);
                 return false;
             }
+            if (value !== confirmPasswordInput) {
+                setInputError(prev => prev = props.error ?? `Passwords are not equal.`);
+                return false;                
+            }
         }
         setInputError(prev => prev = '');
         return true;
+    };
+
+    const handleConfirmPasswordInput = function (value: any): void {
+        setConfirmPassword(value);
     };
 
     useImperativeHandle(ref, () => ({ validate: validate}));
@@ -42,6 +51,14 @@ import { PasswordProps } from "../interfaces/props";
             secureTextEntry={true}
             returnKeyType={props.returnKey}
             placeholder={props.placeholder}
+        />
+        <TextInput
+            onChangeText={handleConfirmPasswordInput}
+            style={styles.password}
+            blurOnSubmit={props.blurOnSubmit ?? false}
+            secureTextEntry={true}
+            returnKeyType={props.returnKey}
+            placeholder={props.confirmPlaceholder}
         />
         {props.isRequired && inputError ? <Text style={styles.error}>{inputError}</Text> : null}
         </>
