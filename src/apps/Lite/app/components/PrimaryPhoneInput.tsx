@@ -1,9 +1,23 @@
-import React, { useEffect, useState } from "react";
+import React, { forwardRef, useImperativeHandle, useState } from "react";
 
 import { TextInput, StyleSheet, Text } from "react-native";
 import { InputProps } from "../interfaces/props";
 
-export default function PrimaryPhoneInput(props: InputProps) {
+function PrimaryPhoneInput(props: InputProps, ref: any) {
+
+  const [inputError, setInputError] = useState<string | null>(null);
+  
+  const validate = (): boolean => {    
+    if (props.isRequired &&  (props.value?.length ?? 0) < 10) {
+      setInputError((prev) => prev = (props.error || 'Phone number is required'));
+      return false;
+    }
+    setInputError((prev) => prev = '');
+    return true;
+  };
+
+  useImperativeHandle(ref, () => ({ validate: validate}));
+
   return (
     <>
       <TextInput
@@ -13,10 +27,12 @@ export default function PrimaryPhoneInput(props: InputProps) {
         keyboardType="phone-pad"
         maxLength={15} 
       />
-      { props.isRequired && props.error ? <Text style={styles.error}>{props.error}</Text> : null }
+      { props.isRequired && inputError ? <Text style={styles.error}>{inputError}</Text> : null }
     </>
   );
 }
+
+export default forwardRef(PrimaryPhoneInput);
 
 const styles = StyleSheet.create({    
   input: {
