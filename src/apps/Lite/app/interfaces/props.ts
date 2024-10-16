@@ -12,3 +12,15 @@ export interface InputProps {
     min?: number | undefined;
     max?: number | undefined;
 }
+
+export interface PasswordProps {
+    name?: string | undefined;
+    value?: string | undefined;
+    onChange?: (text: string) => void | undefined;
+    placeholder?: string | undefined;
+    returnKey?: ReturnKeyTypeOptions | undefined;
+    blurOnSubmit?: boolean | undefined;
+    error?: string | undefined;
+    isRequired?: boolean | undefined;
+    min?: number | undefined;
+}

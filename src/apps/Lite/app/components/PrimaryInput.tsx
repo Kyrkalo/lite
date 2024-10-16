@@ -7,21 +7,23 @@ function PrimaryInput(props: InputProps, ref: any) {
     const [inputError, setInputError] = useState<string | null>(null);
 
     const validate = (): boolean => {
-
-        if(props.isRequired && (props.value || '').length === 0) {
-            setInputError(prev => prev = props.error || "Field is required.");
-            return false;
-        }
-
-        if (props.min && props.value && props.value.length  <= props.min) {
-            setInputError(prev => prev = props.error || `Minimum length is ${props.min}`);
-            return false;
-        }
-
-        if (props.max && props.value && props.value.length  <= props.max) {
-            setInputError(prev => prev = props.error || `Maximum length is ${props.max}`);
-            return false;
-        }
+        
+        if(props.isRequired) {
+            if((props.value || '').length === 0) {
+                setInputError((prev) => prev = props.error || "Field is required.");
+                return false;
+            }
+    
+            if (props.min && props.value && props.value.length  < props.min) {
+                setInputError((prev) => prev = props.error || `Minimum length is ${props.min}`);
+                return false;
+            }
+    
+            if (props.max && props.value && props.value.length  > props.max) {
+                setInputError((prev) => prev = props.error || `Maximum length is ${props.max}`);
+                return false;
+            }
+        }        
         setInputError(prev => prev = "");
         return true;
       };
