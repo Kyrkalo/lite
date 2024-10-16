@@ -27,21 +27,13 @@ export default function RegisterScreen() {
   });
 
   const emailRef = useRef<any>(null);
+  const usernameRef = useRef<any>(null);
 
   const validatePhone = (): boolean => {
     const valid = details.phone?.length >= 10;
     setError((prevError) => ({
       ...prevError,
       phone: valid ? '' : 'Phone number is required',
-    }));
-    return valid;
-  };
-
-  const validateUsername = (): boolean => {
-    const valid = details.username?.length >= 5;
-    setError((prevError) => ({
-      ...prevError,
-      username: valid ? '' : 'Username must be at least 5 characters long.',
     }));
     return valid;
   };
@@ -101,7 +93,7 @@ export default function RegisterScreen() {
     setStep((prevStep) => {
       switch (prevStep) {
         case 1:
-          const isUserNameValid = validateUsername();
+          const isUserNameValid = usernameRef.current?.validate();
           const isEmailValid  = emailRef.current?.validate();
           const isPhoneValid = validatePhone();
           if ( isUserNameValid &&  isEmailValid && isPhoneValid) {
@@ -139,10 +131,13 @@ export default function RegisterScreen() {
               onChange={(value) => handleInput("phone", value)}
             />
             <PrimaryInput
+              ref={usernameRef}
+              value={details.username}
               placeholder="username"
               returnKey="next"
               error={error.username}
               isRequired={true}
+              min={5}
               onChange={(value) => handleInput("username", value)}
             />
             <PrimaryEmailInput

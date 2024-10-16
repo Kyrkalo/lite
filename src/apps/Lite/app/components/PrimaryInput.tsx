@@ -1,18 +1,32 @@
-import React from "react";
+import React, { forwardRef, useImperativeHandle, useState } from "react";
 import { TextInput, StyleSheet, ReturnKeyTypeOptions, Text } from "react-native";
+import { InputProps } from "../interfaces/props";
 
-export interface InputProps {
-    name?: string | undefined;
-    value?: string | undefined;
-    onChange?: (text: string) => void | undefined;
-    placeholder?: string | undefined;
-    returnKey?: ReturnKeyTypeOptions | undefined;
-    blurOnSubmit?: boolean | undefined;
-    error?: string | undefined;
-    isRequired?: boolean | undefined;
-}
+function PrimaryInput(props: InputProps, ref: any) {
 
-export default function PrimaryInput(props: InputProps) {
+    const [inputError, setInputError] = useState<string | null>(null);
+
+    const validate = (): boolean => {
+
+        if(props.isRequired && (props.value || '').length === 0) {
+            setInputError(prev => prev = props.error || "Field is required.");
+            return false;
+        }
+
+        if (props.min && props.value && props.value.length  <= props.min) {
+            setInputError(prev => prev = props.error || `Minimum length is ${props.min}`);
+            return false;
+        }
+
+        if (props.max && props.value && props.value.length  <= props.max) {
+            setInputError(prev => prev = props.error || `Maximum length is ${props.max}`);
+            return false;
+        }
+        setInputError(prev => prev = "");
+        return true;
+      };
+    
+      useImperativeHandle(ref, () => ({ validate: validate}));
 
     return (
         <>
@@ -22,10 +36,12 @@ export default function PrimaryInput(props: InputProps) {
             blurOnSubmit ={ props.blurOnSubmit }
             returnKeyType={ props.returnKey }
             placeholder={ props.placeholder }></TextInput>
-            { props.isRequired && props.error ? <Text style={styles.error}>{props.error}</Text> : null }
+            { props.isRequired && inputError ? <Text style={styles.error}>{inputError}</Text> : null }
         </>
     );
 }
+
+export default forwardRef(PrimaryInput);
 
 const styles = StyleSheet.create({
     input: {

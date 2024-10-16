@@ -5,9 +5,11 @@ import {
   ReturnKeyTypeOptions,
   Text,
 } from "react-native";
-import { InputProps } from "./PrimaryInput";
+import { InputProps } from "../interfaces/props";
+
 
 function PrimaryEmailInput(props: InputProps, ref: any) {
+
   const [inputError, setInputError] = useState<string | null>(null);
 
   const validateEmail = (): boolean => {
