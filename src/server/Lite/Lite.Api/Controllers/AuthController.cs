@@ -17,7 +17,8 @@ public class AuthController(IAuthService authService) : ControllerBase
     [ServiceFilter(typeof(RegisterDtoValidateAttribute))]
     public async Task<ActionResult> Register(RegisterDto register)
     {
-        return await _authService.Register(register) ? Ok("Success") : Conflict();
+        var result = await _authService.Register(register);
+        return Ok(result);
     }
 
     [AllowAnonymous]

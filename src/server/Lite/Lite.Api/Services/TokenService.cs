@@ -1,6 +1,8 @@
-﻿using Lite.Api.Models;
-using Lite.Api.Repositories.Interfaces;
+﻿using AspNetCore.Identity.MongoDbCore.Models;
+using Lite.Api.Dtos;
+using Lite.Api.Models;
 using Lite.Api.Services.Interfaces;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -11,17 +13,18 @@ namespace Lite.Api.Services;
 
 public class TokenService : ITokenService
 {
-    private readonly ILogger _logger;
     private readonly IConfigurationSection _jwtSettings;
     private readonly IConfiguration _configuration;
+    private readonly UserManager<ApplicationUser> _userManager;
 
-    public TokenService(IConfiguration configuration)
+    public TokenService(IConfiguration configuration, UserManager<ApplicationUser> userManager)
     {
         _configuration = configuration;
         _jwtSettings = _configuration.GetSection("JwtSettings");
+        _userManager = userManager;
     }
 
-    public ClaimsPrincipal Validate(string token)
+    public async Task<ClaimsPrincipal> Validate(string token)
     {
         var key = Encoding.ASCII.GetBytes(_jwtSettings["Secret"]);
         var tokenHandler = new JwtSecurityTokenHandler();
@@ -36,28 +39,67 @@ public class TokenService : ITokenService
                 ValidateAudience = false,
                 ValidateLifetime = true
             }, out SecurityToken validatedToken);
-
-            return principal;
+            var claim = principal.Claims.FirstOrDefault(e => e.Properties.Any(l => l.Value == JwtRegisteredClaimNames.Sub));
+            if (claim != null)
+            {
+                var user = await _userManager.FindByNameAsync(claim.Value);
+                if (user != null &&  user.Tokens.Any(e => e.Value == token)) 
+                {
+                    return principal;
+                }
+            }
         }
         catch (Exception ex) 
         {
-            _logger.LogError(ex, ex.Message);
         }
         return default;
     }
 
-    public (string token, string refreshToken) Generate(string id, string username)
-    {        
-        var token = GetToken(id, username);
-        var refreshToken = GetRefreshToken();
+    public (Token accessToken, Token refreshToken) Generate(string id, string username)
+    {
+        var uniqueName = Guid.NewGuid().ToString();
+        var token = new Token()
+        {
+            Value = GetToken(id, username),
+            Name = uniqueName,
+            LoginProvider = "AccessToken"
+        };
+        var refreshToken = new Token()
+        {
+            Value = GetRefreshToken(),
+            Name = uniqueName,
+            LoginProvider = "RefreshToken"
+        };
         return (token, refreshToken);
+    }
+
+    public async Task<(Token accessToken, Token refreshToken)?> Refresh(RefreshTokenDto refreshTokenDto)
+    {
+        var user = await _userManager.FindByNameAsync(refreshTokenDto.Username);
+        var refreshtoken = user.Tokens.Find(e => e.Value == refreshTokenDto.Token);
+        if (refreshtoken is not null)
+        {
+            var (newAccessToken, newRefreshToken) = Generate(user.Id.ToString(), user.UserName);
+            user.Tokens.Add(newAccessToken);
+            user.Tokens.Add(newRefreshToken);
+
+            var accessToken = user.Tokens.Find(e => e.Name == refreshtoken.Name);
+            user.Tokens.Remove(refreshtoken);
+            user.Tokens.Remove(accessToken);
+
+            await _userManager.UpdateAsync(user);
+            return (newAccessToken, newRefreshToken);
+        }
+
+        await Task.FromResult(0);
+        return default;
     }
 
     /// <summary>
     /// Returns refresh token. This is temporary solution and need to be updated.
     /// </summary>
     /// <returns></returns>
-    private string GetRefreshToken()
+    private static string GetRefreshToken()
     {
         var randomBytes = new byte[64];
         using var rng = RandomNumberGenerator.Create();
@@ -78,10 +120,14 @@ public class TokenService : ITokenService
         return new JwtSecurityTokenHandler().WriteToken(tokenHandler);
     }
 
-    private IEnumerable<Claim> GetClaims(string id, string username) => 
+    private static IEnumerable<Claim> GetClaims(string id, string username) => 
     [
         new Claim(JwtRegisteredClaimNames.Sub, username),
         new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-        new Claim(ClaimTypes.NameIdentifier, id)
+        new Claim(ClaimTypes.NameIdentifier, id),
+        new Claim(JwtRegisteredClaimNames.Iss, "lite"),
+        new Claim(JwtRegisteredClaimNames.Aud, "lite.api"),
+        new Claim(JwtRegisteredClaimNames.Iat, DateTimeOffset.UtcNow.ToUnixTimeSeconds().ToString()),
+        new Claim(JwtRegisteredClaimNames.Nonce, Guid.NewGuid().ToString()) //A value used to associate a client session with an ID token to mitigate replay attacks.
     ];
 }

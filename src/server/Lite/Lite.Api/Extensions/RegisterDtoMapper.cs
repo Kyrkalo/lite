@@ -1,6 +1,5 @@
 ﻿using Lite.Api.Dtos;
 using Lite.Api.Models;
-using System.Net.NetworkInformation;
 
 namespace Lite.Api.Extensions;
 
@@ -14,6 +13,17 @@ public static class RegisterDtoMapper
             Phone = registerDto.Phone,
             UserName = registerDto.UserName,
             Password = registerDto.Password,
+        };
+    }
+
+    public static ApplicationUser ToApplicationUser(this RegisterDto registerDto, Models.Enums.VerifyType verifyType = Models.Enums.VerifyType.None)
+    {
+        return new ApplicationUser
+        {
+            UserName = registerDto.UserName,
+            Email = registerDto.Email,
+            PhoneNumber = registerDto.Phone,
+            Verify = verifyType,
         };
     }
 }
