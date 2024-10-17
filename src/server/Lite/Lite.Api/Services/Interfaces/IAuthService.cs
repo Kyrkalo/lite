@@ -9,5 +9,5 @@ public interface IAuthService
 
     Task Logout(ClaimsPrincipal claimsPrincipal);
 
-    Task<bool> Register(RegisterDto register);
+    Task<TokensDto> Register(RegisterDto register);
 }

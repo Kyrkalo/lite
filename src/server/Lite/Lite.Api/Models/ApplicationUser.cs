@@ -1,6 +1,9 @@
 ﻿using AspNetCore.Identity.MongoDbCore.Models;
-using System;
+using Lite.Api.Models.Enums;
 
 namespace Lite.Api.Models;
 
-public class ApplicationUser : MongoIdentityUser<Guid> { }
+public class ApplicationUser : MongoIdentityUser<Guid> 
+{
+    public VerifyType Verify { get; set; }
+}
