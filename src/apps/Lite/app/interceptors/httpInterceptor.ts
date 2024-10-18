@@ -8,8 +8,7 @@ export default class HttpInterceptor {
     constructor(url: string) 
     {
         this.axiosInstance = axios.create({
-            baseURL: url,
-            timeout: 2000
+            baseURL: url
         });
         this.axiosInstance.interceptors.request.use(this.onRequest, this.onRequestError);
         this.axiosInstance.interceptors.response.use(this.onResponse, this.onResponseError);
