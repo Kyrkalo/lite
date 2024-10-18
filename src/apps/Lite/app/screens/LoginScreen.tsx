@@ -4,17 +4,23 @@ import { useAuthService } from "../hooks/useServices";
 import PrimaryInput from "../components/PrimaryInput";
 import PrimaryPasswordInput from "../components/PrimaryPasswordInput";
 import { globalStyles } from "../styles";
+import LoginModel from "../models/loginModel";
 
 
 export default function LoginScreen() {
 
-    const [details, setDetails] = useState({ username: '', password: '', code: ''});
-    const enableLogin = details.username.trim() != '' && details.password.trim() != ''
+    const [details, setDetails] = useState<LoginModel>({ username: '', password: ''});
+    const enableLogin = details.username?.trim() != '' && details.password?.trim() != ''
     const authService = useAuthService();
 
-    const onClickLoginButton = async function(e: any) {
+    const onClickLoginButton = async function(e: any): Promise<void> {
         if (enableLogin) {
-            await authService.login(details.username, details.password);
+            const result = await authService.login(details);
+            if (!result) {
+                console.log('goto error screen');
+            } else {
+                console.log('go to home screen')
+            }
         }
     }
 
@@ -41,7 +47,7 @@ export default function LoginScreen() {
                     backgroundColor: enableLogin ? '#c6cbef' : '#A9A9A9'
                 }
             ]} 
-            disabled={enableLogin}
+            disabled={!enableLogin}
             onPress={onClickLoginButton}>
                 <Text style={globalStyles.buttonText}>Login</Text>
         </TouchableOpacity>
