@@ -10,7 +10,7 @@ builder.Services.AddSwaggerGen();
 builder.SetupServices();
 builder.SetupMongoDbIdentity(configuration);
 builder.SetupAuthentication(configuration);
-
+builder.Services.AddMvc();
 
 var app = builder.Build();
 
@@ -31,8 +31,9 @@ builder.SetIsOriginAllowed(_ => true)
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
-
+app.UseRouting();
 app.MapControllers();
 
 app.Run();
