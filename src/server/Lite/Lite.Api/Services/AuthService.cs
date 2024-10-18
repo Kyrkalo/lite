@@ -25,7 +25,7 @@ public class AuthService(ITokenService tokenService,
             var result = await _signInManager.CheckPasswordSignInAsync(user, login.Password, false);
             if (result.Succeeded)
             {
-                var (accessToken, refreshToken) = await SetTokens(user);
+                var (accessToken, refreshToken) = await SetTokens(user, true);
                 return new TokensDto(accessToken.Value, refreshToken.Value);
             }
         }
@@ -58,9 +58,13 @@ public class AuthService(ITokenService tokenService,
         return default;
     }
 
-    private async Task<(Token accessToken, Token refreshToken)> SetTokens(ApplicationUser user)
+    private async Task<(Token accessToken, Token refreshToken)> SetTokens(ApplicationUser user, bool clearTokens = false)
     {
         var (accessToken, refreshToken) = _tokenService.Generate(user.Id.ToString(), user.UserName);
+        if (clearTokens)
+        {
+            user.Tokens.Clear();
+        }    
         user.Tokens.Add(accessToken);
         user.Tokens.Add(refreshToken);
         await _userManager.UpdateAsync(user);
