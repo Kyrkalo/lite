@@ -24,7 +24,7 @@ public class AuthController(IAuthService authService) : ControllerBase
     [AllowAnonymous]
     [HttpPost("Login")]
     [ServiceFilter(typeof(UserDtoValidateAttribute))]
-    public async ValueTask<ActionResult<(string, string)>> Login(LoginDto login)
+    public async Task<ActionResult<TokensDto>> Login(LoginDto login)
     {
         var tokens = await _authService.Signin(login);
         return Ok(tokens);
