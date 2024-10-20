@@ -52,6 +52,7 @@ import { PasswordProps } from "../interfaces/props";
             returnKeyType={props.returnKey}
             placeholder={props.placeholder}
         />
+        {props.confirm ? 
         <TextInput
             onChangeText={handleConfirmPasswordInput}
             style={styles.password}
@@ -59,7 +60,7 @@ import { PasswordProps } from "../interfaces/props";
             secureTextEntry={true}
             returnKeyType={props.returnKey}
             placeholder={props.confirmPlaceholder}
-        />
+        /> : null}
         {props.isRequired && inputError ? <Text style={styles.error}>{inputError}</Text> : null}
         </>
     );
