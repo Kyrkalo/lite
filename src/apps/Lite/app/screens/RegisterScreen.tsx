@@ -96,6 +96,7 @@ export default function RegisterScreen() {
           <>
             <PrimaryPasswordInput
               ref={passwordRef}
+              confirm = {true}
               value={details.password}
               onChange={(value) => handleInput("password", value)}
               returnKey="next"

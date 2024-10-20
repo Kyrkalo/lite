@@ -1,14 +1,12 @@
 import * as Keychain from 'react-native-keychain';
 import HttpInterceptor from '../interceptors/httpInterceptor';
 import appConfig from './config';
-import sslPinning from 'react-native-ssl-pinning';
+import * as SecureStore from 'expo-secure-store';
 import { Token } from '../models/token';
 import LoginModel from '../models/loginModel';
 import RegisterModel from '../models/registerModel';
 
 export class AuthService extends HttpInterceptor {
-
-    //certificate = require('./assets/certificate.cer');
 
     constructor() {
         super(appConfig.api);
@@ -22,10 +20,9 @@ export class AuthService extends HttpInterceptor {
             let instance = this.getInstance();
             var response = await instance.post('auth/login', loginModel);
             
-            if (response.status === 200 && response.data){                
-                await Keychain.resetGenericPassword();
-                await Keychain.setGenericPassword('accessToken', response.data.accessToken ?? '');
-                await Keychain.setGenericPassword('refreshToken', response.data.refreshToken ?? '');
+            if (response.status === 200 && response.data){
+                await SecureStore.setItemAsync('accessToken', response.data.accessToken ?? '')
+                await SecureStore.setItemAsync('refreshToken', response.data.refreshToken ?? '')
                 return true;
             }
         }
@@ -40,9 +37,8 @@ export class AuthService extends HttpInterceptor {
         let instance = this.getInstance();
         let response = await instance.post<Token>('auth/register', registerModel);
         if (response.status){
-            await Keychain.resetGenericPassword();
-            await Keychain.setGenericPassword('accessToken', response.data.accessToken ?? '');
-            await Keychain.setGenericPassword('refreshToken', response.data.refreshToken ?? '');
+            await SecureStore.setItemAsync('accessToken', response.data.accessToken ?? '')
+            await SecureStore.setItemAsync('refreshToken', response.data.refreshToken ?? '')
             return true;
         }
         return false;

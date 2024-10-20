@@ -24,4 +24,5 @@ export interface PasswordProps {
     error?: string | undefined;
     isRequired?: boolean | undefined;
     min?: number | undefined;
+    confirm?: boolean | undefined;
 }
