@@ -1,3 +1,6 @@
 {
-    "api": "http://192.168.2.13:5109/"
+  "api": "https://lite-rg-eqgdg2b0abbjb5cx.canadacentral-01.azurewebsites.net/",
+  "plugins": [
+    "expo-secure-store"
+  ]
 }
