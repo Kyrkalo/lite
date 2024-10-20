@@ -11,9 +11,6 @@ public class User
     [BsonElement("user_name")]
     public string UserName { get; set; }
 
-    [BsonElement("password")]
-    public string Password { get; set; }
-
     [BsonElement("email")]
     public string Email { get; set; }
 

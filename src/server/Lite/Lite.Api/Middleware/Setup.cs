@@ -13,6 +13,7 @@ using Lite.Api.Repositories;
 using Lite.Api.Validators;
 using MongoDB.Driver;
 using Lite.Api.CustomAttributes;
+using System.Security.Authentication;
 
 namespace Lite.Api.Middleware;
 
@@ -39,7 +40,12 @@ public static class Setup
         builder.Services.AddScoped<IMongoDatabase>(e => 
         {
             MongoClientSettings settings = MongoClientSettings.FromUrl(new MongoUrl(mongoSettings["ConnectionString"]));
-            //settings.SslSettings = new SslSettings() { EnabledSslProtocols = SslProtocols.Default };
+
+            //settings.ReadConcern = ReadConcern.Majority;
+            //settings.ReadPreference = ReadPreference.Primary;
+            //settings.SslSettings = new SslSettings() { EnabledSslProtocols = SslProtocols.Tls12 };
+
+            //settings.ServerApi = new ServerApi(ServerApiVersion.V1);
             var mongoClient = new MongoClient(settings);
             return mongoClient.GetDatabase(mongoSettings["AppDb"]);
         });
