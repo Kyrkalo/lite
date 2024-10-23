@@ -9,7 +9,6 @@ public static class LoginDtoMapper
     {
         return new User()
         {
-            Password = loginDto.Password,
             UserName = loginDto.UserName,
         };
     }

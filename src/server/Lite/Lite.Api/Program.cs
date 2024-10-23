@@ -7,6 +7,9 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddAuthentication();
+builder.Services.AddAuthorization();
+
 builder.SetupServices();
 builder.SetupMongoDbIdentity(configuration);
 builder.SetupAuthentication(configuration);
@@ -31,9 +34,9 @@ builder.SetIsOriginAllowed(_ => true)
 
 app.UseHttpsRedirection();
 
+app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
-app.UseRouting();
 app.MapControllers();
 
 app.Run();
