@@ -3,14 +3,16 @@ using Lite.Api.Dtos;
 using Lite.Api.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Lite.Api.CustomAttributes;
+using Lite.Api.Extensions;
 
 namespace Lite.Api.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class AuthController(IAuthService authService) : ControllerBase
+public class AuthController(IAuthService authService, IUserService userService) : ControllerBase
 {
     private readonly IAuthService _authService = authService;
+    private readonly IUserService _userService = userService;
 
     [AllowAnonymous]
     [HttpPost("Register")]
@@ -18,6 +20,8 @@ public class AuthController(IAuthService authService) : ControllerBase
     public async Task<ActionResult> Register(RegisterDto register)
     {
         var result = await _authService.Register(register);
+        var user = register.ToUser();
+        await _userService.Create(user);
         return Ok(result);
     }
 
