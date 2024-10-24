@@ -1,5 +1,5 @@
 import axios, { AxiosError, AxiosInstance, AxiosResponse, InternalAxiosRequestConfig } from 'axios';
-
+import * as SecureStore from 'expo-secure-store';
 
 export default class HttpInterceptor {
 
@@ -15,10 +15,10 @@ export default class HttpInterceptor {
     }
 
     private onRequest(config: InternalAxiosRequestConfig): InternalAxiosRequestConfig {
-        // var token = `Bearer:`;
-        // if (token && config.method != 'OPTIONS') {
-        //     config.headers?.setAuthorization(token);
-        // }
+        const token = SecureStore.getItem('accessToken');
+        if (token) {
+            config.headers?.setAuthorization(`$Bearer ${token}`);
+        }
         return config;
     }
 
