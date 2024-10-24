@@ -5,7 +5,7 @@ export interface InputProps {
     value?: string | undefined;
     onChange?: (text: string) => void | undefined;
     placeholder?: string | undefined;
-    returnKey?: ReturnKeyTypeOptions | undefined;
+    returnKey?: ReturnKeyTypeOptions | undefined; 
     blurOnSubmit?: boolean | undefined;
     error?: string | undefined;
     isRequired?: boolean | undefined;
