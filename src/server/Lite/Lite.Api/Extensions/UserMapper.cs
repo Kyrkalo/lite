@@ -5,9 +5,12 @@ namespace Lite.Api.Extensions;
 
 public static class UserMapper
 {
-    public static UserDto ToUserDto(this User user)
+    public static AuthUserDto ToAuthUserDto(this User user)
     {
-        return new UserDto()
+        if (user == null)
+            return null;
+
+        return new AuthUserDto()
         {
             UserName = user.UserName,
             Email = user.Email,
@@ -15,13 +18,44 @@ public static class UserMapper
         };
     }
 
-    public static User ToUser(this UserDto user)
+    public static User ToUser(this AuthUserDto user)
     {
+        if (user == null)
+            return null;
+
         return new User()
         {
             UserName = user.UserName,
             Email = user.Email,
             Phone = user.Phone,
+        };
+    }
+
+    public static UserDto ToUserDto(this User user)
+    {
+        if (user == null)
+            return null;
+
+        return new UserDto()
+        {
+            UserName = user.UserName,
+            Email = user.Email,
+            Phone = user.Phone,
+            Avatar = user.Avatar,
+        };
+    }
+
+    public static User ToUser(this UserDto user)
+    {
+        if (user == null)
+            return null;
+
+        return new User()
+        {
+            UserName = user.UserName,
+            Email = user.Email,
+            Phone = user.Phone,
+            Avatar = user.Avatar,
         };
     }
 }
