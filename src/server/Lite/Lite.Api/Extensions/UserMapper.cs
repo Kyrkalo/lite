@@ -14,4 +14,14 @@ public static class UserMapper
             Phone = user.Phone,
         };
     }
+
+    public static User ToUser(this UserDto user)
+    {
+        return new User()
+        {
+            UserName = user.UserName,
+            Email = user.Email,
+            Phone = user.Phone,
+        };
+    }
 }
