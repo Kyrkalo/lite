@@ -122,7 +122,10 @@ public class TokenService : ITokenService
 
     private static IEnumerable<Claim> GetClaims(string id, string username) => 
     [
-        new Claim(JwtRegisteredClaimNames.Sub, username),
+        new Claim(JwtRegisteredClaimNames.Name, username),
+        new Claim(JwtRegisteredClaimNames.PreferredUsername, username),
+        new Claim(JwtRegisteredClaimNames.Nickname, username),
+        new Claim(JwtRegisteredClaimNames.FamilyName, username),
         new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
         new Claim(ClaimTypes.NameIdentifier, id),
         new Claim(JwtRegisteredClaimNames.Iss, "lite"),
