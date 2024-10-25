@@ -21,13 +21,14 @@ namespace Lite.Api.Controllers
         public async Task<ActionResult> Get()
         {
             var username = User.Identity.Name;
-            var result = await _userService.Get(new Models.User(username));
-            return Ok(result);
+            var user = await _userService.Get(new Models.User(username));
+            var userDto = user.ToUserDto();
+            return Ok(userDto);
         }
 
         [Authorize]
         [HttpPost("")]
-        public async Task<ActionResult> Update([FromBody] UserDto userDto)
+        public async Task<ActionResult> Update([FromBody] AuthUserDto userDto)
         {
             var user = userDto.ToUser();
             await _userService.Update(user);

@@ -23,4 +23,10 @@ public class User
 
     [BsonElement("phone")]
     public string Phone { get; set; }
+
+    [BsonElement("avatar")]
+    public string Avatar { get; set; }
+
+    [BsonElement("settings")]
+    public string Settings { get; set; }
 }

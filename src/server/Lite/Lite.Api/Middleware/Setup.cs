@@ -77,7 +77,8 @@ public static class Setup
                 ValidateIssuer = false,
                 ValidateAudience = false,
                 RequireExpirationTime = true,
-                ValidateLifetime = true
+                ValidateLifetime = true,
+                NameClaimType = "name"
             };
         });
     }
