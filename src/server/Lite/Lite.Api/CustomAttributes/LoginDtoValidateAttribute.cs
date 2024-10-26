@@ -1,16 +1,16 @@
-﻿using FluentValidation;
-using Lite.Api.Dtos;
+﻿using Lite.Api.Dtos;
 using Lite.Api.Validators;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace Lite.Api.CustomAttributes;
 
-public class UserDtoValidateAttribute : ActionFilterAttribute
+[Obsolete]
+public class LoginDtoValidateAttribute : ActionFilterAttribute
 {
-    private readonly UserDtoValidator _validator;
+    private readonly LoginDtoValidator _validator;
 
-    public UserDtoValidateAttribute(UserDtoValidator validator) => _validator = validator;
+    public LoginDtoValidateAttribute(LoginDtoValidator validator) => _validator = validator;
 
     public override async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
     {

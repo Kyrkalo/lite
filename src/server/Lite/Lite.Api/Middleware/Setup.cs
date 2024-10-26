@@ -13,7 +13,8 @@ using Lite.Api.Repositories;
 using Lite.Api.Validators;
 using MongoDB.Driver;
 using Lite.Api.CustomAttributes;
-using System.Security.Authentication;
+using Lite.Api.Dtos;
+using FluentValidation;
 
 namespace Lite.Api.Middleware;
 
@@ -27,10 +28,12 @@ public static class Setup
         builder.Services.AddScoped<IRepository<User>,  Repository<User>>();
         builder.Services.AddScoped<IAuthService, AuthService>();
 
-        builder.Services.AddScoped<UserDtoValidator>();
+        builder.Services.AddScoped<LoginDtoValidator>();
         builder.Services.AddScoped<RegisterDtoValidator>();
-        builder.Services.AddScoped<UserDtoValidateAttribute>();
-        builder.Services.AddScoped<RegisterDtoValidateAttribute>();
+        builder.Services.AddScoped<UserDtoValidator>();
+        builder.Services.AddScoped<ValitatorAttribute<UserDtoValidator, UserDto>>();
+        builder.Services.AddScoped<ValitatorAttribute<RegisterDtoValidator, RegisterDto>>();
+        builder.Services.AddScoped<ValitatorAttribute<LoginDtoValidator, LoginDto>>();
     }
 
     public static void SetupMongoDbIdentity(this WebApplicationBuilder builder, ConfigurationManager configuration)
