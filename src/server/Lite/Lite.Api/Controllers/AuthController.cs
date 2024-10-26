@@ -4,6 +4,7 @@ using Lite.Api.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Lite.Api.CustomAttributes;
 using Lite.Api.Extensions;
+using Lite.Api.Validators;
 
 namespace Lite.Api.Controllers;
 
@@ -16,7 +17,7 @@ public class AuthController(IAuthService authService, IUserService userService) 
 
     [AllowAnonymous]
     [HttpPost("Register")]
-    [ServiceFilter(typeof(RegisterDtoValidateAttribute))]
+    [ServiceFilter(typeof(ValitatorAttribute<RegisterDtoValidator, RegisterDto>))]
     public async Task<ActionResult> Register(RegisterDto register)
     {
         var result = await _authService.Register(register);
@@ -27,7 +28,7 @@ public class AuthController(IAuthService authService, IUserService userService) 
 
     [AllowAnonymous]
     [HttpPost("Login")]
-    [ServiceFilter(typeof(UserDtoValidateAttribute))]
+    [ServiceFilter(typeof(ValitatorAttribute<LoginDtoValidator, LoginDto>))]
     public async Task<ActionResult<TokensDto>> Login(LoginDto login)
     {
         var tokens = await _authService.Signin(login);

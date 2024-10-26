@@ -7,5 +7,5 @@ public interface IUserService
 {
     Task Create(User user);
     Task<User> Get(User user);
-    Task Update(User user);
+    Task Update(User user, User updatedUser);
 }

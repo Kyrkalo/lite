@@ -35,11 +35,16 @@ public class UserService : IUserService
         return result.FirstOrDefault();
     }
 
-    public async Task Update(User user)
+    public async Task Update(User user, User updatedUser)
     {
-        if (user is null)
+        if (user is null || updatedUser is null)
             throw new System.Exception("");
 
+        user.Avatar = updatedUser.Avatar;
+        user.Email = updatedUser.Email;
+        user.Phone = updatedUser.Phone;
+
         await _userRepository.UpdateAsync(user.Id, user);
+        
     }
 }

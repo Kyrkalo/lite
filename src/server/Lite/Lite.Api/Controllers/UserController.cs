@@ -1,6 +1,8 @@
-﻿using Lite.Api.Dtos;
+﻿using Lite.Api.CustomAttributes;
+using Lite.Api.Dtos;
 using Lite.Api.Extensions;
 using Lite.Api.Services.Interfaces;
+using Lite.Api.Validators;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -28,10 +30,12 @@ namespace Lite.Api.Controllers
 
         [Authorize]
         [HttpPost("")]
-        public async Task<ActionResult> Update([FromBody] AuthUserDto userDto)
+        [ServiceFilter(typeof(ValitatorAttribute<UserDtoValidator, UserDto>))]
+        public async Task<ActionResult> Update([FromBody] UserDto userDto)
         {
-            var user = userDto.ToUser();
-            await _userService.Update(user);
+            var username = User.Identity.Name;
+            var user = await _userService.Get(new Models.User(username));
+            await _userService.Update(user, userDto.ToUser());
             return Ok("");
         }
     }

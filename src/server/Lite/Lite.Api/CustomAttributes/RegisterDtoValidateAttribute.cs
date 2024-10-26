@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Lite.Api.CustomAttributes;
 
+[Obsolete]
 public class RegisterDtoValidateAttribute : ActionFilterAttribute
 {
     private readonly RegisterDtoValidator _validator;
