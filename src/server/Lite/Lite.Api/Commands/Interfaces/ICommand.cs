@@ -1,7 +1,7 @@
 ﻿namespace Lite.Api.Commands.Interfaces;
 
-public interface ICommand<T>
+public interface ICommand
 {
-    ValueTask<bool> CanExecute(object parameter);
-    Task<CommandResult<T>> Execute(object parameter, CancellationToken cancellationToken); 
+    ValueTask<bool> CanExecute(object parameter, CancellationToken cancellationToken);
+    Task<CommandResult> Execute(object parameter, CancellationToken cancellationToken); 
 }
