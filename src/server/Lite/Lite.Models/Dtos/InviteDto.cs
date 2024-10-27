@@ -1,4 +1,4 @@
-﻿namespace Lite.Api.Dto;
+﻿namespace Lite.Models.Dtos;
 
 public class InviteDto
 {

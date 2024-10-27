@@ -1,6 +1,6 @@
 ﻿using MongoDB.Bson.Serialization.Attributes;
 
-namespace Lite.Api.Models;
+namespace Lite.Models.Data;
 
 public class User
 {

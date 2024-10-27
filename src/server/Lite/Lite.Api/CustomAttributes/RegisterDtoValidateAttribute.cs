@@ -1,8 +1,7 @@
-﻿using Lite.Api.Dtos;
-using Lite.Api.Validators;
+﻿using Lite.Api.Validators;
+using Lite.Models.Dtos;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using System.Threading.Tasks;
 
 namespace Lite.Api.CustomAttributes;
 

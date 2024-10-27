@@ -48,3 +48,4 @@ yarn-error.*
 /src/server/Lite/.vs/ProjectEvaluation
 /src/server/Lite/Lite.Api/obj
 /src/apps/Lite/%ProgramData%/Microsoft/Windows/UUS/State/_active.uusver
+/src/server/Lite/Lite.Contracts/bin/Debug/net8.0

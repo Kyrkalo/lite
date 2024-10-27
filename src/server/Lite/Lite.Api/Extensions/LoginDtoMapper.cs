@@ -1,5 +1,5 @@
-﻿using Lite.Api.Dtos;
-using Lite.Api.Models;
+﻿using Lite.Models.Data;
+using Lite.Models.Dtos;
 
 namespace Lite.Api.Extensions;
 

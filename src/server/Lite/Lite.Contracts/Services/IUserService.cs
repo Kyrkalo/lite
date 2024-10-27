@@ -1,6 +1,7 @@
-﻿using Lite.Api.Models;
+﻿
+using Lite.Models.Data;
 
-namespace Lite.Api.Services.Interfaces;
+namespace Lite.Contracts.Services;
 
 public interface IUserService
 {

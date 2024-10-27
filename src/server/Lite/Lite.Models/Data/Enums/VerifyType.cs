@@ -1,4 +1,4 @@
-﻿namespace Lite.Api.Models.Enums;
+﻿namespace Lite.Models.Data.Enums;
 
 public enum VerifyType
 {

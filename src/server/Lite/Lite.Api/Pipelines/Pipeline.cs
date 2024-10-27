@@ -1,6 +1,5 @@
-﻿using Lite.Api.Commands;
-using Lite.Api.Commands.Interfaces;
-using Lite.Api.Pipeline.Interfaces;
+﻿using Lite.Contracts.Commands;
+using Lite.Contracts.Pipelines;
 
 namespace Lite.Api.Pipelines;
 

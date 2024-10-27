@@ -1,23 +1,20 @@
-﻿using Lite.Api.Services.Interfaces;
-using Lite.Api.Services;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.AspNetCore.Builder;
+﻿using Lite.Api.Services;
 using AspNetCore.Identity.MongoDbCore.Models;
-using Lite.Api.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using Lite.Api.Repositories.Interfaces;
 using Lite.Api.Repositories;
 using Lite.Api.Validators;
 using MongoDB.Driver;
 using Lite.Api.CustomAttributes;
-using Lite.Api.Dtos;
-using FluentValidation;
-using Lite.Api.Commands.Interfaces;
 using Lite.Api.Commands;
-using Lite.Api.Pipeline.Interfaces;
+using Lite.Contracts.Services;
+using Lite.Contracts.Repositories;
+using Lite.Models.Data;
+using Lite.Models.Dtos;
+using Lite.Contracts.Commands;
+using Lite.Contracts.Pipelines;
 
 namespace Lite.Api.Middleware;
 

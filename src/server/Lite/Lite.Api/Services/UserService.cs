@@ -1,6 +1,6 @@
-﻿using Lite.Api.Models;
-using Lite.Api.Repositories.Interfaces;
-using Lite.Api.Services.Interfaces;
+﻿using Lite.Contracts.Repositories;
+using Lite.Contracts.Services;
+using Lite.Models.Data;
 using MongoDB.Bson;
 using MongoDB.Driver;
 

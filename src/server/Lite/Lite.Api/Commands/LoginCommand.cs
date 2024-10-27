@@ -1,10 +1,8 @@
-﻿using Lite.Api.Commands.Interfaces;
-using Lite.Api.Dtos;
-using Lite.Api.Services.Interfaces;
+﻿using Lite.Contracts.Commands;
+using Lite.Contracts.Services;
+using Lite.Models.Dtos;
 
 namespace Lite.Api.Commands;
-
-public interface ILoginCommand : ICommand;
 
 public class LoginCommand(IAuthService authService) : ILoginCommand
 {

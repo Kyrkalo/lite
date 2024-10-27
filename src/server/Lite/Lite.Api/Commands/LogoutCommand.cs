@@ -1,10 +1,8 @@
-﻿using Lite.Api.Commands.Interfaces;
-using Lite.Api.Services.Interfaces;
+﻿using Lite.Contracts.Commands;
+using Lite.Contracts.Services;
 using System.Security.Claims;
 
 namespace Lite.Api.Commands;
-
-public interface ILogoutCommand : ICommand;
 
 public class LogoutCommand(IAuthService authService) : ILogoutCommand
 {

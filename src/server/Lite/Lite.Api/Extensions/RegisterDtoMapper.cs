@@ -1,5 +1,6 @@
-﻿using Lite.Api.Dtos;
-using Lite.Api.Models;
+﻿using Lite.Models.Data;
+using Lite.Models.Data.Enums;
+using Lite.Models.Dtos;
 
 namespace Lite.Api.Extensions;
 
@@ -15,7 +16,7 @@ public static class RegisterDtoMapper
         };
     }
 
-    public static ApplicationUser ToApplicationUser(this RegisterDto registerDto, Models.Enums.VerifyType verifyType = Models.Enums.VerifyType.None)
+    public static ApplicationUser ToApplicationUser(this RegisterDto registerDto, VerifyType verifyType = VerifyType.None)
     {
         return new ApplicationUser
         {
