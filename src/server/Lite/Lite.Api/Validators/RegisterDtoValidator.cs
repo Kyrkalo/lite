@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using Lite.Api.Dtos;
+using Lite.Models.Dtos;
 
 namespace Lite.Api.Validators
 {

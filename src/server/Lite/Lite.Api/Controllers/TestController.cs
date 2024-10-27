@@ -1,5 +1,4 @@
-﻿using Lite.Api.Dto;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace Lite.Api.Controllers
 {

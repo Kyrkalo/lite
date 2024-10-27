@@ -1,4 +1,4 @@
-﻿namespace Lite.Api.Dtos;
+﻿namespace Lite.Models.Dtos;
 
 public class ValidateTokenDto
 {

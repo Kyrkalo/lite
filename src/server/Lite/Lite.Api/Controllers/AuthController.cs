@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Lite.Api.Dtos;
 using Microsoft.AspNetCore.Authorization;
 using Lite.Api.CustomAttributes;
 using Lite.Api.Validators;
-using Lite.Api.Pipeline.Interfaces;
-using Lite.Api.Commands;
+using Lite.Models.Dtos;
+using Lite.Contracts.Pipelines;
+using Lite.Contracts.Commands;
 
 namespace Lite.Api.Controllers;
 

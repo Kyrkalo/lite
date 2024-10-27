@@ -1,4 +1,4 @@
-﻿namespace Lite.Api.Commands;
+﻿namespace Lite.Contracts.Commands;
 
 public struct CommandResult
 {

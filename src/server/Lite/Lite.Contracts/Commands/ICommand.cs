@@ -1,4 +1,4 @@
-﻿namespace Lite.Api.Commands.Interfaces;
+﻿namespace Lite.Contracts.Commands;
 
 public interface ICommand
 {

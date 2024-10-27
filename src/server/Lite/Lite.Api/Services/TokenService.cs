@@ -1,7 +1,7 @@
 ﻿using AspNetCore.Identity.MongoDbCore.Models;
-using Lite.Api.Dtos;
-using Lite.Api.Models;
-using Lite.Api.Services.Interfaces;
+using Lite.Contracts.Services;
+using Lite.Models.Data;
+using Lite.Models.Dtos;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;

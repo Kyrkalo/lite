@@ -1,10 +1,8 @@
-﻿using Lite.Api.Commands.Interfaces;
-using Lite.Api.Dtos;
-using Lite.Api.Services.Interfaces;
+﻿using Lite.Contracts.Commands;
+using Lite.Contracts.Services;
+using Lite.Models.Dtos;
 
 namespace Lite.Api.Commands;
-
-public interface IRegisterCommand : ICommand;
 
 public class RegisterCommand(IAuthService authService) : IRegisterCommand
 {

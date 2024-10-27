@@ -1,8 +1,6 @@
 ﻿using MongoDB.Driver;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
-namespace Lite.Api.Repositories.Interfaces;
+namespace Lite.Contracts.Repositories;
 
 public interface IRepository<T> where T : class
 {

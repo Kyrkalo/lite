@@ -1,7 +1,7 @@
 ﻿using AspNetCore.Identity.MongoDbCore.Models;
-using Lite.Api.Models.Enums;
+using Lite.Models.Data.Enums;
 
-namespace Lite.Api.Models;
+namespace Lite.Models.Data;
 
 public class ApplicationUser : MongoIdentityUser<Guid> 
 {

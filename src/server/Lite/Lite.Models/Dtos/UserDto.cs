@@ -1,10 +1,10 @@
-﻿namespace Lite.Api.Dtos;
+﻿namespace Lite.Models.Dtos;
 
-public class AuthUserDto
+public class UserDto
 {
     public string UserName { get; set; }
-    public string Token { get; set; }
     public string Email { get; set; }
     public string Phone { get; set; }
     public SettingsDto Settings { get; set; }
+    public string Avatar { get; set; }
 }

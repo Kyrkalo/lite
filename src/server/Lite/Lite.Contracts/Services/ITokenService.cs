@@ -1,8 +1,8 @@
 ﻿using AspNetCore.Identity.MongoDbCore.Models;
-using Lite.Api.Dtos;
+using Lite.Models.Dtos;
 using System.Security.Claims;
 
-namespace Lite.Api.Services.Interfaces;
+namespace Lite.Contracts.Services;
 
 public interface ITokenService
 {

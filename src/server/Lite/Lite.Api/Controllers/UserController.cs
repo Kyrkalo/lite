@@ -1,8 +1,9 @@
 ﻿using Lite.Api.CustomAttributes;
-using Lite.Api.Dtos;
 using Lite.Api.Extensions;
-using Lite.Api.Services.Interfaces;
 using Lite.Api.Validators;
+using Lite.Contracts.Services;
+using Lite.Models.Data;
+using Lite.Models.Dtos;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -23,7 +24,7 @@ namespace Lite.Api.Controllers
         public async Task<ActionResult> Get()
         {
             var username = User.Identity.Name;
-            var user = await _userService.Get(new Models.User(username));
+            var user = await _userService.Get(new User(username));
             var userDto = user.ToUserDto();
             return Ok(userDto);
         }
@@ -34,7 +35,7 @@ namespace Lite.Api.Controllers
         public async Task<ActionResult> Update([FromBody] UserDto userDto)
         {
             var username = User.Identity.Name;
-            var user = await _userService.Get(new Models.User(username));
+            var user = await _userService.Get(new User(username));
             await _userService.Update(user, userDto.ToUser());
             return Ok("");
         }

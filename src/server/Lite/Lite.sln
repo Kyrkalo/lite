@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.35027.167
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lite.Api", "Lite.Api\Lite.Api.csproj", "{810C26F3-B156-4330-B9FA-50C3D4955F89}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lite.Api", "Lite.Api\Lite.Api.csproj", "{810C26F3-B156-4330-B9FA-50C3D4955F89}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lite.Contracts", "Lite.Contracts\Lite.Contracts.csproj", "{9FE17C51-DF5C-49C6-A0F7-45D97892267A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lite.Models", "Lite.Models\Lite.Models.csproj", "{AF0C626D-8648-42A9-90AC-39B020F1ADB4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{810C26F3-B156-4330-B9FA-50C3D4955F89}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{810C26F3-B156-4330-B9FA-50C3D4955F89}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{810C26F3-B156-4330-B9FA-50C3D4955F89}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9FE17C51-DF5C-49C6-A0F7-45D97892267A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9FE17C51-DF5C-49C6-A0F7-45D97892267A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9FE17C51-DF5C-49C6-A0F7-45D97892267A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9FE17C51-DF5C-49C6-A0F7-45D97892267A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AF0C626D-8648-42A9-90AC-39B020F1ADB4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF0C626D-8648-42A9-90AC-39B020F1ADB4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF0C626D-8648-42A9-90AC-39B020F1ADB4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF0C626D-8648-42A9-90AC-39B020F1ADB4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

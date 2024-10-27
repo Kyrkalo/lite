@@ -1,6 +1,5 @@
-﻿using Lite.Api.Dtos;
-using Lite.Api.Models;
-using Lite.Api.Services.Interfaces;
+﻿using Lite.Contracts.Services;
+using Lite.Models.Dtos;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;

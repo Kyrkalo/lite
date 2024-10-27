@@ -1,4 +1,4 @@
-﻿using Lite.Api.Dto;
+﻿using Lite.Models.Dtos;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Lite.Api.Controllers

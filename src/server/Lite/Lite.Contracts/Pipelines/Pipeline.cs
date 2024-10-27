@@ -1,7 +1,6 @@
-﻿using Lite.Api.Commands;
-using Lite.Api.Commands.Interfaces;
+﻿using Lite.Contracts.Commands;
 
-namespace Lite.Api.Pipeline.Interfaces;
+namespace Lite.Contracts.Pipelines;
 
 public interface IPipeline
 {

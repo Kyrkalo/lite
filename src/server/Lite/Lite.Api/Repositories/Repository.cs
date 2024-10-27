@@ -1,4 +1,4 @@
-﻿using Lite.Api.Repositories.Interfaces;
+﻿using Lite.Contracts.Repositories;
 using MongoDB.Bson;
 using MongoDB.Driver;
 
