@@ -5,7 +5,6 @@ using Lite.Api.Models;
 using Lite.Api.Services.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
-using ZstdSharp.Unsafe;
 
 namespace Lite.Api.Services;
 
