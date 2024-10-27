@@ -1,34 +1,31 @@
 ﻿using Lite.Api.Commands.Interfaces;
 using Lite.Api.Dtos;
 using Lite.Api.Services.Interfaces;
-using Lite.Api.Extensions;
 
-namespace Lite.Api.Commands
+namespace Lite.Api.Commands;
+
+public interface IRegisterCommand : ICommand;
+
+public class RegisterCommand(IAuthService authService) : IRegisterCommand
 {
-    public class RegisterCommand(IAuthService authService, IUserService userService) : ICommand<TokensDto>
+    private readonly IAuthService _authService = authService;
+
+    public ValueTask<bool> CanExecute(object parameter, CancellationToken cancellationToken)
     {
-        private readonly IAuthService _authService = authService;
-        private readonly IUserService _userService = userService;
+        return ValueTask.FromResult(true);
+    }
 
-        public ValueTask<bool> CanExecute(object parameter)
+    public async Task<CommandResult> Execute(object parameter, CancellationToken cancellationToken)
+    {
+        TokensDto tokensDto = null;
+        if (parameter is RegisterDto register)
         {
-            return ValueTask.FromResult(true);
+            tokensDto = await _authService.Register(register);
         }
-
-        public async Task<CommandResult<TokensDto>> Execute(object parameter, CancellationToken cancellationToken)
+        return new CommandResult()
         {
-            TokensDto tokensDto = null;
-            if (parameter is RegisterDto register)
-            {
-                tokensDto = await _authService.Register(register);
-                var user = register.ToUser();
-                await _userService.Create(user);
-            }
-            return new CommandResult<TokensDto>()
-            {
-                Success = true,
-                Result = tokensDto
-            };
-        }
+            Success = true,
+            Result = tokensDto
+        };
     }
 }

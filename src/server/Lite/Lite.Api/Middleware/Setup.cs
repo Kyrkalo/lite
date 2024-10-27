@@ -17,6 +17,7 @@ using Lite.Api.Dtos;
 using FluentValidation;
 using Lite.Api.Commands.Interfaces;
 using Lite.Api.Commands;
+using Lite.Api.Pipeline.Interfaces;
 
 namespace Lite.Api.Middleware;
 
@@ -37,7 +38,12 @@ public static class Setup
         builder.Services.AddScoped<ValitatorAttribute<RegisterDtoValidator, RegisterDto>>();
         builder.Services.AddScoped<ValitatorAttribute<LoginDtoValidator, LoginDto>>();
 
-        builder.Services.AddScoped<ICommand<TokensDto>, RegisterCommand>();
+        builder.Services.AddScoped<IRegisterCommand, RegisterCommand>();
+        builder.Services.AddScoped<ILogoutCommand, LogoutCommand>();
+        builder.Services.AddScoped<ILoginCommand, LoginCommand>();
+        builder.Services.AddScoped<ICreateUserCommand, CreateUserCommand>();
+
+        builder.Services.AddScoped<IPipeline, Pipelines.Pipeline>();
     }
 
     public static void SetupMongoDbIdentity(this WebApplicationBuilder builder, ConfigurationManager configuration)

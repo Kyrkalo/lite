@@ -1,14 +1,15 @@
 ﻿using Lite.Api.Commands.Interfaces;
-using Lite.Api.Dtos;
 using Lite.Api.Services.Interfaces;
+using Lite.Api.Dtos;
+using Lite.Api.Extensions;
 
 namespace Lite.Api.Commands;
 
-public interface ILoginCommand : ICommand;
+public interface ICreateUserCommand : ICommand;
 
-public class LoginCommand(IAuthService authService) : ILoginCommand
+public class CreateUserCommand(IUserService userService) : ICreateUserCommand
 {
-    private readonly IAuthService _authService = authService;
+    private readonly IUserService _userService = userService;
 
     public async ValueTask<bool> CanExecute(object parameter, CancellationToken cancellationToken)
     {
@@ -17,15 +18,13 @@ public class LoginCommand(IAuthService authService) : ILoginCommand
 
     public async Task<CommandResult> Execute(object parameter, CancellationToken cancellationToken)
     {
-        TokensDto tokensDto = null;
-        if (parameter is LoginDto login)
+        if (parameter is RegisterDto register)
         {
-            tokensDto = await _authService.Signin(login);
+            await _userService.Create(register.ToUser());
         }
-        return new CommandResult
+        return new CommandResult()
         {
-            Success = true,
-            Result = tokensDto
+            Success = true
         };
     }
 }

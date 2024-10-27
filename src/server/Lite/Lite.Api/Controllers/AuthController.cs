@@ -1,44 +1,55 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Lite.Api.Dtos;
-using Lite.Api.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Lite.Api.CustomAttributes;
-using Lite.Api.Extensions;
 using Lite.Api.Validators;
+using Lite.Api.Pipeline.Interfaces;
+using Lite.Api.Commands;
 
 namespace Lite.Api.Controllers;
 
 [ApiController]
-[Route("[controller]")]
-public class AuthController(IAuthService authService, IUserService userService) : ControllerBase
+[Route("api/[controller]")]
+public class AuthController(IPipeline pipeline,
+    IRegisterCommand registerCommand,
+    ICreateUserCommand createUserCommand,
+    ILoginCommand loginCommand,
+    ILogoutCommand logoutCommand) : ControllerBase
 {
-    private readonly IAuthService _authService = authService;
-    private readonly IUserService _userService = userService;
+    private readonly IPipeline _pipeline = pipeline;
+    private readonly IRegisterCommand _registerCommand = registerCommand;
+    private readonly ICreateUserCommand _createUserCommand = createUserCommand;
+    private readonly ILoginCommand _loginCommand = loginCommand;
+    private readonly ILogoutCommand _logoutCommand = logoutCommand;
+
 
     [AllowAnonymous]
     [HttpPost("Register")]
     [ServiceFilter(typeof(ValitatorAttribute<RegisterDtoValidator, RegisterDto>))]
-    public async Task<ActionResult> Register(RegisterDto register)
+    public async Task<ActionResult> Register(RegisterDto register, CancellationToken cancellationToken)
     {
-        var result = await _authService.Register(register);
-        var user = register.ToUser();
-        await _userService.Create(user);
-        return Ok(result);
+        TokensDto tokens = null;
+        _pipeline.AddCommand(_registerCommand, e => { tokens = (TokensDto)e.Result; });
+        _pipeline.AddCommand(_createUserCommand);
+        await _pipeline.RunAsync(register, cancellationToken);
+        return Ok(tokens);
     }
 
     [AllowAnonymous]
     [HttpPost("Login")]
     [ServiceFilter(typeof(ValitatorAttribute<LoginDtoValidator, LoginDto>))]
-    public async Task<ActionResult<TokensDto>> Login(LoginDto login)
+    public async Task<ActionResult<TokensDto>> Login(LoginDto login, CancellationToken cancellationToken)
     {
-        var tokens = await _authService.Signin(login);
+        TokensDto tokens = null;
+        _pipeline.AddCommand(_loginCommand, e => { tokens = (TokensDto)e.Result; });
+        await _pipeline.RunAsync(login, cancellationToken);
         return Ok(tokens);
     }
 
     [HttpPost("Logout")]
-    public async Task<ActionResult> Logout()
+    public async Task<ActionResult> Logout(CancellationToken cancellationToken)
     {
-        await _authService.Logout(User);
+        await _loginCommand.Execute(User, cancellationToken);
         return Ok();
     }
 }
