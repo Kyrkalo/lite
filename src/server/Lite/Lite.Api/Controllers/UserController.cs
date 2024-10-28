@@ -1,7 +1,9 @@
-﻿using Lite.Api.CustomAttributes;
+﻿using Lite.Api.Commands.User;
+using Lite.Api.CustomAttributes;
 using Lite.Api.Extensions;
 using Lite.Api.Queries;
 using Lite.Api.Validators;
+using Lite.Contracts.Commands;
 using Lite.Contracts.Services;
 using Lite.Models.Data;
 using Lite.Models.Dtos;
@@ -12,10 +14,9 @@ namespace Lite.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UserController(UserQueryHandler userQueryHandler) : ControllerBase
+    public class UserController(UserQueryHandler userQueryHandler, IUpdateUserCommand updateUserCommand) : ControllerBase
     {
-        private readonly IUserService _userService;
-
+        private readonly IUpdateUserCommand _updateUserCommand = updateUserCommand;
         private readonly UserQueryHandler _userQueryHandler = userQueryHandler;
 
         [Authorize]
@@ -29,12 +30,21 @@ namespace Lite.Api.Controllers
         [Authorize]
         [HttpPost("")]
         [ServiceFilter(typeof(ValitatorAttribute<UserDtoValidator, UserDto>))]
-        public async Task<ActionResult> Update([FromBody] UserDto userDto)
+        public async Task<ActionResult> Update([FromBody] UserDto userDto, CancellationToken cancellationToken)
         {
-            var username = User.Identity.Name;
-            var user = await _userService.Get(new User(username));
-            await _userService.Update(user, userDto.ToUser());
-            return Ok("");
+            var update = new Update()
+            {
+                Avatar = userDto.Avatar,
+                Email = userDto.Email,
+                Phone = userDto.Phone,
+                Username = userDto.UserName,
+                IdentityName = User.Identity.Name
+            };
+            if (await _updateUserCommand.CanExecute(update, cancellationToken))
+            {
+
+            }
+            return Ok();
         }
     }
 }
