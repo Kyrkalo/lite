@@ -5,7 +5,7 @@ using Lite.Models.Dtos;
 
 namespace Lite.Api.Commands.User;
 
-public class CreateUserCommand(IUserService userService) : ICreateUserCommand
+public class CreateCommand(IUserService userService) : ICreateUserCommand
 {
     private readonly IUserService _userService = userService;
 
