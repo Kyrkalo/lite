@@ -3,7 +3,7 @@ using Lite.Contracts.Commands;
 using Lite.Contracts.Services;
 using Lite.Models.Dtos;
 
-namespace Lite.Api.Commands;
+namespace Lite.Api.Commands.User;
 
 public class CreateUserCommand(IUserService userService) : ICreateUserCommand
 {

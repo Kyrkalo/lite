@@ -8,7 +8,6 @@ using Lite.Api.Repositories;
 using Lite.Api.Validators;
 using MongoDB.Driver;
 using Lite.Api.CustomAttributes;
-using Lite.Api.Commands;
 using Lite.Contracts.Services;
 using Lite.Contracts.Repositories;
 using Lite.Models.Data;
@@ -17,6 +16,8 @@ using Lite.Contracts.Commands;
 using Lite.Contracts.Pipelines;
 using Lite.Contracts.Queries;
 using Lite.Api.Queries;
+using Lite.Api.Commands.User;
+using Lite.Api.Commands.Auth;
 
 namespace Lite.Api.Middleware;
 
@@ -44,7 +45,7 @@ public static class Setup
 
         builder.Services.AddScoped<IPipeline, Pipelines.Pipeline>();
 
-        builder.Services.AddScoped<IQueryHandler<User, UserDto>, UserQueryHandler>();
+        builder.Services.AddScoped<IQueryHandler<string, UserDto>, UserQueryHandler>();
     }
 
     public static void SetupMongoDbIdentity(this WebApplicationBuilder builder, ConfigurationManager configuration)

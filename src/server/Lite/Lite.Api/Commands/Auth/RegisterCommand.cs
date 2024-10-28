@@ -2,7 +2,7 @@
 using Lite.Contracts.Services;
 using Lite.Models.Dtos;
 
-namespace Lite.Api.Commands;
+namespace Lite.Api.Commands.Auth;
 
 public class RegisterCommand(IAuthService authService) : IRegisterCommand
 {
