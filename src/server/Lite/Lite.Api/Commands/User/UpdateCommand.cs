@@ -10,7 +10,7 @@ public class UpdateCommand(IUserService userService) : IUpdateUserCommand
 
     public async ValueTask<bool> CanExecute(object parameter, CancellationToken cancellationToken)
     {
-        bool result = parameter is Update update && update != null && update.Username == update.IdentityName;
+        bool result = parameter is Update update && update.Username == update.IdentityName;
         return await ValueTask.FromResult(result);
     }
 
