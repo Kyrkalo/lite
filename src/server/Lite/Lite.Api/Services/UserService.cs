@@ -24,6 +24,7 @@ public class UserService : IUserService
         await _userRepository.CreateAsync(user);
     }
 
+    [Obsolete]
     public async Task<User> Get(User user)
     {
         if (user is null)

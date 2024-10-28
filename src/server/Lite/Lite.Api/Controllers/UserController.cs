@@ -1,5 +1,6 @@
 ﻿using Lite.Api.CustomAttributes;
 using Lite.Api.Extensions;
+using Lite.Api.Queries;
 using Lite.Api.Validators;
 using Lite.Contracts.Services;
 using Lite.Models.Data;
@@ -11,21 +12,17 @@ namespace Lite.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UserController : ControllerBase
+    public class UserController(UserQueryHandler userQueryHandler) : ControllerBase
     {
         private readonly IUserService _userService;
-        public UserController(IUserService userService) 
-        {
-            _userService = userService;
-        }
+
+        private readonly UserQueryHandler _userQueryHandler = userQueryHandler;
 
         [Authorize]
         [HttpGet("")]
         public async Task<ActionResult> Get()
         {
-            var username = User.Identity.Name;
-            var user = await _userService.Get(new User(username));
-            var userDto = user.ToUserDto();
+            var userDto = await _userQueryHandler.HandleAsync(User.Identity.Name);
             return Ok(userDto);
         }
 
