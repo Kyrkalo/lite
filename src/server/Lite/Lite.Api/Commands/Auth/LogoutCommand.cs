@@ -1,10 +1,10 @@
 ﻿using Lite.Contracts.Commands;
 using Lite.Contracts.Services;
-using Lite.Models.Dtos;
+using System.Security.Claims;
 
-namespace Lite.Api.Commands;
+namespace Lite.Api.Commands.Auth;
 
-public class LoginCommand(IAuthService authService) : ILoginCommand
+public class LogoutCommand(IAuthService authService) : ILogoutCommand
 {
     private readonly IAuthService _authService = authService;
 
@@ -15,15 +15,13 @@ public class LoginCommand(IAuthService authService) : ILoginCommand
 
     public async Task<CommandResult> Execute(object parameter, CancellationToken cancellationToken)
     {
-        TokensDto tokensDto = null;
-        if (parameter is LoginDto login)
+        if (parameter is ClaimsPrincipal user)
         {
-            tokensDto = await _authService.Signin(login);
+            await _authService.Logout(user);
         }
-        return new CommandResult
+        return new CommandResult()
         {
             Success = true,
-            Result = tokensDto
         };
     }
 }
