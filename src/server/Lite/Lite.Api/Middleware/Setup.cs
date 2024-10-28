@@ -15,6 +15,8 @@ using Lite.Models.Data;
 using Lite.Models.Dtos;
 using Lite.Contracts.Commands;
 using Lite.Contracts.Pipelines;
+using Lite.Contracts.Queries;
+using Lite.Api.Queries;
 
 namespace Lite.Api.Middleware;
 
@@ -41,6 +43,8 @@ public static class Setup
         builder.Services.AddScoped<ICreateUserCommand, CreateUserCommand>();
 
         builder.Services.AddScoped<IPipeline, Pipelines.Pipeline>();
+
+        builder.Services.AddScoped<IQueryHandler<User, UserDto>, UserQueryHandler>();
     }
 
     public static void SetupMongoDbIdentity(this WebApplicationBuilder builder, ConfigurationManager configuration)
