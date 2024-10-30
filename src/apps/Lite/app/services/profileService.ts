@@ -1,16 +1,21 @@
-export default interface IProfileData {
-    avatar: string;
-    username: string;
-    phone: string;
-}
+import HttpInterceptor from "../interceptors/httpInterceptor";
+import { ProfileModel } from "../models/profileModel";
+import appConfig from "./config";
 
-export class ProfileService {
-    get(): IProfileData {
-        let profile: IProfileData = {
-            avatar: '../../assets/logo.png',
-            phone: '+13379991432',
-            username: '@fake.username'
-        };
-        return profile;
+export class ProfileService extends HttpInterceptor {
+
+    constructor() {
+        super(appConfig.api);
+    }
+    
+    public async get(): Promise<ProfileModel> {
+
+        let instance = this.getInstance();
+
+        var response = await instance.get<ProfileModel>('api/user');
+        
+        if (response.status === 200 && response.data) { }
+
+        return response.data;
     }
 }
