@@ -1,11 +1,9 @@
 ﻿using Lite.Api.Commands.User;
 using Lite.Api.CustomAttributes;
-using Lite.Api.Extensions;
 using Lite.Api.Queries;
 using Lite.Api.Validators;
 using Lite.Contracts.Commands;
-using Lite.Contracts.Services;
-using Lite.Models.Data;
+using Lite.Contracts.Queries;
 using Lite.Models.Dtos;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -14,10 +12,10 @@ namespace Lite.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UserController(UserQueryHandler userQueryHandler, IUpdateUserCommand updateUserCommand) : ControllerBase
+    public class UserController(IQueryHandler<string, UserDto> userQueryHandler, IUpdateUserCommand updateUserCommand) : ControllerBase
     {
         private readonly IUpdateUserCommand _updateUserCommand = updateUserCommand;
-        private readonly UserQueryHandler _userQueryHandler = userQueryHandler;
+        private readonly IQueryHandler<string, UserDto> _userQueryHandler = userQueryHandler;
 
         [Authorize]
         [HttpGet("")]
@@ -32,6 +30,7 @@ namespace Lite.Api.Controllers
         [ServiceFilter(typeof(ValitatorAttribute<UserDtoValidator, UserDto>))]
         public async Task<ActionResult> Update([FromBody] UserDto userDto, CancellationToken cancellationToken)
         {
+            CommandResult commandResult = new();
             var update = new Update()
             {
                 Avatar = userDto.Avatar,
@@ -42,9 +41,9 @@ namespace Lite.Api.Controllers
             };
             if (await _updateUserCommand.CanExecute(update, cancellationToken))
             {
-
+                commandResult = await _updateUserCommand.Execute(update, cancellationToken);
             }
-            return Ok();
+            return Ok(commandResult.Success);
         }
     }
 }

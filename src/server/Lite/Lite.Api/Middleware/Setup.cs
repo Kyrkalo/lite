@@ -42,6 +42,7 @@ public static class Setup
         builder.Services.AddScoped<ILogoutCommand, LogoutCommand>();
         builder.Services.AddScoped<ILoginCommand, LoginCommand>();
         builder.Services.AddScoped<ICreateUserCommand, CreateCommand>();
+        builder.Services.AddScoped<IUpdateUserCommand,  UpdateCommand>();
 
         builder.Services.AddScoped<IPipeline, Pipelines.Pipeline>();
 

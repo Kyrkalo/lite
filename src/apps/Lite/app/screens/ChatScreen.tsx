@@ -28,7 +28,7 @@ export default function ChatScreen() {
             
         };
         loadContacts();
-    }, [contactService]);
+    }, []);
 
     return(
         <View style={styles.container}>
