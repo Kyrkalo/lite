@@ -18,4 +18,10 @@ export class ProfileService extends HttpInterceptor {
 
         return response.data;
     }
+
+    public async update(data: ProfileModel): Promise<any> {
+        let instance = this.getInstance();
+        var response = await instance.post<ProfileModel>('api/user', data);
+        if (response.status === 200 && response.data) { }        
+    }
 }
