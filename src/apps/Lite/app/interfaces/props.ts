@@ -11,6 +11,7 @@ export interface InputProps {
     isRequired?: boolean | undefined;
     min?: number | undefined;
     max?: number | undefined;
+    editable?: boolean | undefined;
 }
 
 export interface PasswordProps {
