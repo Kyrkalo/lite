@@ -33,6 +33,7 @@ function PrimaryInput(props: InputProps, ref: any) {
     return (
         <>
             <TextInput
+            editable={props.editable}
             onChangeText={props.onChange} 
             style={ styles.input }
             blurOnSubmit ={ props.blurOnSubmit }
