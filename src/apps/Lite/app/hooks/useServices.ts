@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { AuthServiceContext, ContactServiceContext, MessagingServiceContext, ProfileServiceContext, SettingsServiceContext } from "../contexts/serviceContexts";
+import { AuthServiceContext, ContactServiceContext, GlobalContext, MessagingServiceContext, ProfileServiceContext, SettingsServiceContext } from "../contexts/serviceContexts";
 import { AuthService } from "../services/authService";
 import { ContactService } from "../services/contactService";
 import { MessagingService } from "../services/messagingService";
@@ -22,3 +22,4 @@ export const useContactService = (): ContactService => useService.get(ContactSer
 export const useMessagingService =(): MessagingService => useService.get(MessagingServiceContext);
 export const useSettingsService =(): UserSettingsService => useService.get(SettingsServiceContext);
 export const userProfileService =(): ProfileService => useService.get(ProfileServiceContext);
+export const useGlobalContext = () =>  useContext(GlobalContext);

@@ -1,26 +1,30 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { TouchableOpacity, View, Text, StyleSheet } from "react-native";
-import { useAuthService } from "../hooks/useServices";
+import { useAuthService, useGlobalContext } from "../hooks/useServices";
 import PrimaryInput from "../components/PrimaryInput";
 import PrimaryPasswordInput from "../components/PrimaryPasswordInput";
 import { globalStyles } from "../styles";
 import LoginModel from "../models/loginModel";
+import { NavigationProp, useNavigation } from "@react-navigation/native";
+import { RootDrawerParamList } from "../types/rootDrawerParamList";
 
 
 export default function LoginScreen() {
 
+    const navigation = useNavigation<NavigationProp<RootDrawerParamList, 'Login'>>();
+
     const [details, setDetails] = useState<LoginModel>({ username: '', password: ''});
-    const enableLogin = details.username?.trim() != '' && details.password?.trim() != ''
+
+    const enableLogin = details.username?.trim() != '' && details.password?.trim() != '';
+
     const authService = useAuthService();
 
+    const { state, dispatch } = useGlobalContext();
+
     const onClickLoginButton = async function(e: any): Promise<void> {
-        if (enableLogin) {
-            const result = await authService.login(details);
-            if (!result) {
-                console.log('goto error screen');
-            } else {
-                console.log('go to home screen')
-            }
+        if (enableLogin && await authService.login(details, dispatch)) {
+            navigation.navigate("Home");
+        } else {
         }
     }
 
