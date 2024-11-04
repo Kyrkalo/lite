@@ -5,12 +5,11 @@ import * as SecureStore from 'expo-secure-store';
 import { Token } from '../models/token';
 import LoginModel from '../models/loginModel';
 import RegisterModel from '../models/registerModel';
+import { User } from '../interfaces/props';
 
 export class AuthService extends HttpInterceptor {
 
-    constructor() {
-        super(appConfig.api);
-    }
+    constructor() { super(appConfig.api); }
 
     public hasCredentials = async (): Promise<boolean> => await Keychain.getGenericPassword() ? true : false;
 
@@ -18,11 +17,11 @@ export class AuthService extends HttpInterceptor {
         try
         {
             let instance = this.getInstance();
-            var response = await instance.post('auth/login', loginModel);
+            var response = await instance.post('api/auth/login', loginModel);
             
-            if (response.status === 200 && response.data){
-                await SecureStore.setItemAsync('accessToken', response.data.accessToken ?? '')
-                await SecureStore.setItemAsync('refreshToken', response.data.refreshToken ?? '')
+            if (response.status === 200 && response.data) {
+                await SecureStore.setItemAsync('accessToken', response.data.accessToken ?? '');
+                await SecureStore.setItemAsync('refreshToken', response.data.refreshToken ?? '');
                 return true;
             }
         }
@@ -35,7 +34,7 @@ export class AuthService extends HttpInterceptor {
 
     public async register(registerModel: RegisterModel): Promise<boolean> {
         let instance = this.getInstance();
-        let response = await instance.post<Token>('auth/register', registerModel);
+        let response = await instance.post<Token>('api/auth/register', registerModel);
         if (response.status){
             await SecureStore.setItemAsync('accessToken', response.data.accessToken ?? '')
             await SecureStore.setItemAsync('refreshToken', response.data.refreshToken ?? '')
@@ -43,7 +42,6 @@ export class AuthService extends HttpInterceptor {
         }
         return false;
     }
-
 
     public logout = async () => await Keychain.resetGenericPassword();
 }

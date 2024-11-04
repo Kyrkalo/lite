@@ -27,3 +27,15 @@ export interface PasswordProps {
     min?: number | undefined;
     confirm?: boolean | undefined;
 }
+
+export interface User {
+    avatar?: string | undefined;
+    username?: string | undefined;
+    email?: string | undefined;
+    phone?: string | undefined;
+    login: boolean;
+}
+
+export interface State {
+    user: User | null;
+}
