@@ -2,10 +2,11 @@ import * as Keychain from 'react-native-keychain';
 import HttpInterceptor from '../interceptors/httpInterceptor';
 import appConfig from './config';
 import * as SecureStore from 'expo-secure-store';
-import { Token } from '../models/token';
 import LoginModel from '../models/loginModel';
 import RegisterModel from '../models/registerModel';
-import { User } from '../interfaces/props';
+import { Dispatch } from 'react';
+import { ActionType } from '../types/actionTypes';
+import { Token } from '../interfaces/props';
 
 export class AuthService extends HttpInterceptor {
 
@@ -13,15 +14,17 @@ export class AuthService extends HttpInterceptor {
 
     public hasCredentials = async (): Promise<boolean> => await Keychain.getGenericPassword() ? true : false;
 
-    public async login(loginModel: LoginModel): Promise<boolean> {
+    public async login(loginModel: LoginModel, dispatch: Dispatch<any>): Promise<boolean> {
         try
         {
             let instance = this.getInstance();
             var response = await instance.post('api/auth/login', loginModel);
             
-            if (response.status === 200 && response.data) {
+            if (response.status === 200 && response.data) {                
                 await SecureStore.setItemAsync('accessToken', response.data.accessToken ?? '');
-                await SecureStore.setItemAsync('refreshToken', response.data.refreshToken ?? '');
+                await SecureStore.setItemAsync('refreshToken', response.data.refreshToken ?? '');                
+                let token: Token = { access: response.data.accessToken, refresh: response.data.refreshToken };
+                dispatch({ type: ActionType.SET_TOKEN, payload: token});
                 return true;
             }
         }
@@ -34,14 +37,18 @@ export class AuthService extends HttpInterceptor {
 
     public async register(registerModel: RegisterModel): Promise<boolean> {
         let instance = this.getInstance();
-        let response = await instance.post<Token>('api/auth/register', registerModel);
+        let response = await instance.post<any>('api/auth/register', registerModel);
         if (response.status){
-            await SecureStore.setItemAsync('accessToken', response.data.accessToken ?? '')
-            await SecureStore.setItemAsync('refreshToken', response.data.refreshToken ?? '')
+            await SecureStore.setItemAsync('accessToken', response.data.accessToken ?? '');
+            await SecureStore.setItemAsync('refreshToken', response.data.refreshToken ?? '');
             return true;
         }
         return false;
     }
 
-    public logout = async () => await Keychain.resetGenericPassword();
+    public async logout(dispatch: Dispatch<any>) {
+        await SecureStore.deleteItemAsync('accessToken');
+        await SecureStore.deleteItemAsync('refreshToken');
+        dispatch({ type: ActionType.CLEAR_USER});
+    }
 }

@@ -14,7 +14,17 @@ import InviteScreen from '../screens/InviteScree';
 import LoginScreen from '../screens/LoginScreen';
 import RegisterScreen from '../screens/RegisterScreen';
 
-const Drawer = createDrawerNavigator();
+export type RootDrawerParamList = { 
+  Home: undefined; 
+  Profile: undefined;
+  Invite: undefined;
+  Chat: undefined;
+  Register: undefined;
+  Login: undefined; 
+  Settings: undefined;
+};
+
+const Drawer = createDrawerNavigator<RootDrawerParamList>();
 
 export default function Navigations() {
     return(
@@ -42,8 +52,7 @@ export default function Navigations() {
           <Drawer.Screen name="Chat" component={ChatScreen} />
           <Drawer.Screen name="Login" component={LoginScreen} />
           <Drawer.Screen name="Register" component={RegisterScreen} />
-          <Drawer.Screen name="Settings" 
-          component={SettingsScreen}
+          <Drawer.Screen name="Settings" component={SettingsScreen}
           />
         </Drawer.Navigator>
       </NavigationContainer>

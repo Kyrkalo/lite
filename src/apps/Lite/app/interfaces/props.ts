@@ -1,4 +1,6 @@
 import { ReturnKeyTypeOptions } from "react-native";
+import { Action, ActionType } from "../types/actionTypes";
+import { Dispatch } from "react";
 
 export interface InputProps {
     name?: string | undefined;
@@ -33,9 +35,41 @@ export interface User {
     username?: string | undefined;
     email?: string | undefined;
     phone?: string | undefined;
-    login: boolean;
+}
+
+export interface Token {
+    access?: string | null;
+    refresh?: string | null;
 }
 
 export interface State {
-    user: User | null;
+    user?: User | null;
+    token: Token | null;
+    isLoggedIn: boolean;
+}
+
+export interface AddUserAction {
+    type: ActionType.ADD_USER;
+    payload: User;
+}
+
+export interface ClearUserAction { 
+    type: ActionType.CLEAR_USER; 
+} 
+
+export interface SetTokenAction { 
+    type: ActionType.SET_TOKEN; payload: Token;
+}
+ 
+export interface UpdateTokenAction {
+    type: ActionType.UPDATE_TOKEN; payload: Token;
+} 
+
+export interface SetIsLoggedInAction { 
+    type: ActionType.SET_IS_LOGGED_IN; payload: boolean;
+}
+
+export interface GlobalContextProps { 
+    state: State; 
+    dispatch: Dispatch<Action>;
 }
