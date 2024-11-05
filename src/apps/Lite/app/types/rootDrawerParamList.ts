@@ -6,4 +6,6 @@ export type RootDrawerParamList = {
     Register: undefined;
     Login: undefined; 
     Settings: undefined;
+    Splash: undefined;
+    PreLogin: undefined;
   };

@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useCallback, useRef, useState } from "react";
 import { View } from "react-native";
 import PrimaryInput from "../components/PrimaryInput";
 import PrimaryPasswordInput from "../components/PrimaryPasswordInput";
@@ -6,11 +6,13 @@ import { globalStyles } from "../styles";
 import PrimaryPhoneInput from "../components/PrimaryPhoneInput";
 import PrimaryButton from "../components/PrimaryButton";
 import PrimaryEmailInput from "../components/PrimaryEmailInput";
+import { useNavigation, NavigationProp, useFocusEffect } from "@react-navigation/native";
+import { RootDrawerParamList } from "../types/rootDrawerParamList";
 
 export default function RegisterScreen() {
 
   const [step, setStep] = useState(1);
-
+  const navigation = useNavigation<NavigationProp<RootDrawerParamList>>();
   const [details, setDetails] = useState({
     username: "",
     password: "",
@@ -18,6 +20,11 @@ export default function RegisterScreen() {
     phone: "",
     email: "",
   });
+
+  useFocusEffect(useCallback(() => {
+    setStep(1);
+    setDetails({...details});
+  }, []));
 
   const emailRef = useRef<any>(null);
   const usernameRef = useRef<any>(null);
@@ -56,7 +63,10 @@ export default function RegisterScreen() {
   };
 
   const handlePrevtStep = () => {
-    setStep((prevStep) => (prevStep > 1 ? prevStep - 1 : prevStep));
+    setStep((prevStep) => (prevStep > 0 ? prevStep - 1 : prevStep));
+    if (step === 1) {
+      navigation.navigate('PreLogin');
+    }
   };
 
   return (
@@ -108,13 +118,13 @@ export default function RegisterScreen() {
           </>
         )}
         <View style={globalStyles.row}>
-          {step !== 1 && (
+          
             <PrimaryButton 
               text="Back"
               onPress={handlePrevtStep}
               buttonStyle={globalStyles.backButton} 
               textStyle={globalStyles.buttonText}/>
-          )}
+          
            <PrimaryButton 
               text="Next"
               onPress={handleNextStep}
