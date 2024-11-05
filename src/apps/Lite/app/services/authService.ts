@@ -12,8 +12,6 @@ export class AuthService extends HttpInterceptor {
 
     constructor() { super(appConfig.api); }
 
-    public hasCredentials = async (): Promise<boolean> => await Keychain.getGenericPassword() ? true : false;
-
     public async login(loginModel: LoginModel, dispatch: Dispatch<any>): Promise<boolean> {
         try
         {
@@ -22,7 +20,7 @@ export class AuthService extends HttpInterceptor {
             
             if (response.status === 200 && response.data) {                
                 await SecureStore.setItemAsync('accessToken', response.data.accessToken ?? '');
-                await SecureStore.setItemAsync('refreshToken', response.data.refreshToken ?? '');                
+                await SecureStore.setItemAsync('refreshToken', response.data.refreshToken ?? '');
                 let token: Token = { access: response.data.accessToken, refresh: response.data.refreshToken };
                 dispatch({ type: ActionType.SET_TOKEN, payload: token});
                 return true;
@@ -50,5 +48,10 @@ export class AuthService extends HttpInterceptor {
         await SecureStore.deleteItemAsync('accessToken');
         await SecureStore.deleteItemAsync('refreshToken');
         dispatch({ type: ActionType.CLEAR_USER});
+    }
+
+    public async hasCredentials(): Promise<boolean> {
+        const token = await SecureStore.getItemAsync('accessToken');
+        return token ? true : false;
     }
 }
