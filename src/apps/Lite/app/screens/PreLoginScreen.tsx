@@ -1,5 +1,5 @@
 import React from "react";
-import { View } from "react-native";
+import { Text, View } from "react-native";
 import { globalStyles } from "../styles";
 import PrimaryButton from "../components/PrimaryButton";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
@@ -19,7 +19,8 @@ export default function PreLoginScreen() {
 
     return (
         <View style={globalStyles.container}>
-            <View style={globalStyles.centeredView}>           
+            <View style={globalStyles.centeredView}>
+                <Text>Welcome</Text>
                 <PrimaryButton 
                 text="Login"
                 onPress={handleLoginButton}
