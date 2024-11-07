@@ -11,23 +11,6 @@ export default function ChatScreen() {
     const [contacts, setContacts] = useState<IContact[]>([]);
 
     useEffect(() => {
-        const loadContacts = async () => {
-            var response: IContact[] = [];
-            try{
-                response = await contactService.getAll();
-                console.log(response)
-            }
-            catch(error)
-            {
-                console.log(error)
-            }
-            finally
-            {
-                setContacts(response);
-            }
-            
-        };
-        loadContacts();
     }, []);
 
     return(
