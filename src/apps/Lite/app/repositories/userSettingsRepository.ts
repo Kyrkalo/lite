@@ -1,10 +1,5 @@
 import * as SQLite from 'expo-sqlite';
-
-interface IUserSettings {
-    id: number;
-    key: string;
-    value: string;
-}
+import { IUserSettings } from '../interfaces/props';
 
 export class UserSettingsRepository {
 

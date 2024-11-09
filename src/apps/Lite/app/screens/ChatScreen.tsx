@@ -42,12 +42,5 @@ const styles = StyleSheet.create({
     },
     plate: {
         margin: 20
-    },
-    contact: {
-
-    },
-    title: {
-    },
-    photo: {
     }
 });
