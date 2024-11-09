@@ -73,3 +73,9 @@ export interface GlobalContextProps {
     state: State; 
     dispatch: Dispatch<Action>;
 }
+
+export interface IUserSettings {
+    id: number;
+    key: string;
+    value: string;
+}
