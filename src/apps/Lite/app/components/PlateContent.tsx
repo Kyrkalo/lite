@@ -5,7 +5,7 @@ export default function PlateComponent(props: IContact) {
     return(
         <View style={styles.plate}>
             <View style={styles.photoContainer}>
-                <Image style={styles.photo} source={require('../../assets/logo.png')}></Image>
+                {/* <Image style={styles.photo} source={require('../../assets/logo.png')}></Image> */}
             </View>
             <View style={styles.content}>
                 {/* <Text style={styles.contact}>{props.title}</Text> */}
