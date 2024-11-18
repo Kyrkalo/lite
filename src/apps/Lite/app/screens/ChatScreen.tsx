@@ -1,4 +1,4 @@
-import { FlatList, Image, StyleSheet, Text, View } from 'react-native';
+import { FlatList, StyleSheet, Text, View } from 'react-native';
 import { useEffect, useState } from 'react';
 import PlateComponent from '../components/PlateContent';
 import { IContact } from '../repositories/contactRepository';

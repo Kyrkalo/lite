@@ -5,11 +5,11 @@ import ChatScreen from "../screens/ChatScreen";
 import ProfileScreen from "../screens/ProfileScreen";
 import SettingsScreen from "../screens/SettingsScreen";
 import { useEffect, useState } from "react";
-import IProfileData, { ProfileService } from "../services/profileService";
+import { ProfileService } from "../services/profileService";
 
 export default function DrawerTopComponent() {
 
-    const [profile, setProfile] = useState<IProfileData>({} as IProfileData);
+    const [profile, setProfile] = useState<any>({} as any);
     const profileService = new ProfileService();
 
     useEffect(() => {
@@ -19,10 +19,10 @@ export default function DrawerTopComponent() {
 
     return(
         <View style={styles.top}>
-            <Image 
+            {/* <Image 
                 style={styles.avatar} 
                 source={require('../../assets/logo.png')}>
-            </Image>
+            </Image> */}
             <Text style={styles.userName}> 
                 {profile.username}
             </Text>
