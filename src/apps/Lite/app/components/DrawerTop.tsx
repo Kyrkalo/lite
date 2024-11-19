@@ -1,9 +1,4 @@
-import { createDrawerNavigator, DrawerContentComponentProps, DrawerContentScrollView, DrawerItemList } from "@react-navigation/drawer";
 import { View, Text, StyleSheet, Image } from "react-native";
-import HomeScreen from "../screens/HomeScreen";
-import ChatScreen from "../screens/ChatScreen";
-import ProfileScreen from "../screens/ProfileScreen";
-import SettingsScreen from "../screens/SettingsScreen";
 import { useEffect, useState } from "react";
 import { ProfileService } from "../services/profileService";
 
@@ -19,10 +14,10 @@ export default function DrawerTopComponent() {
 
     return(
         <View style={styles.top}>
-            {/* <Image 
+            <Image 
                 style={styles.avatar} 
                 source={require('../../assets/logo.png')}>
-            </Image> */}
+            </Image>
             <Text style={styles.userName}> 
                 {profile.username}
             </Text>
