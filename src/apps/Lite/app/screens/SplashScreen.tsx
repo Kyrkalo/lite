@@ -8,10 +8,11 @@ export default function SplashScreen() {
     const navigation = useNavigation<NavigationProp<RootDrawerParamList>>();
 
     useEffect(() => {
-        const timeout = setTimeout(async () => {
-            navigation.navigate('PreLogin');
-        }, 2000);
-        return ()=> clearTimeout(timeout);
+        navigation.navigate('PreLogin');
+        // const timeout = setTimeout(async () => {
+        //     navigation.navigate('PreLogin');
+        // }, 2000);
+        // return ()=> clearTimeout(timeout);
     }, []);
 
     return (

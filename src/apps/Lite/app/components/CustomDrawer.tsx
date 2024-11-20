@@ -1,6 +1,8 @@
 import { createDrawerNavigator, DrawerContentComponentProps, DrawerContentScrollView, DrawerItemList } from "@react-navigation/drawer";
 import { View, Text, StyleSheet, Image } from "react-native";
 import DrawerTopComponent from "./DrawerTop";
+import { useAuthService, useGlobalContext } from "../hooks/useServices";
+import PrimaryButton from "./PrimaryButton";
 
 const Drawer = createDrawerNavigator();
 
@@ -10,6 +12,12 @@ export default function CustomDrawerComponene({
     ...props
   }: DrawerContentComponentProps) {
 
+    const auth = useAuthService();
+    const { dispatch } = useGlobalContext();
+
+    const handleLogout = () => {
+        auth.logout(dispatch);
+    };
 
     return (
         <View style={styles.drawer}>
@@ -20,9 +28,9 @@ export default function CustomDrawerComponene({
                 </DrawerContentScrollView>
             </View>
             <View style={styles.footer}>
-                <Text>
-                    Logout goes here
-                </Text>
+                <PrimaryButton
+                text="Logout"
+                onPress={handleLogout}/>
             </View>
         </View>
     )
@@ -41,4 +49,3 @@ const styles = StyleSheet.create({
         marginBottom: 10,
     }
 });
-
