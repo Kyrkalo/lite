@@ -11,10 +11,10 @@ export class ProfileService extends HttpInterceptor {
     public async get(): Promise<ProfileModel> {
         var profile: ProfileModel = { };    
         try{
-            var response = await this.getInstance().get<ProfileModel>('api/user');            
-            if (response.status === 200 && response.data) { 
-                profile = response.data;
-            }
+            // var response = await this.getInstance().get<ProfileModel>('api/user');            
+            // if (response.status === 200 && response.data) { 
+            //     profile = response.data;
+            // }
         } catch(error) {
             console.log(error)
         }

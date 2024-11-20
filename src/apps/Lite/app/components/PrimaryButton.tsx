@@ -2,7 +2,7 @@ import { TouchableOpacity, Text, GestureResponderEvent, ReturnKeyTypeOptions, St
 import { globalStyles } from "../styles";
 
 export interface ButtonProps {
-    onPress?: (event: GestureResponderEvent) => void | undefined;
+    onPress?: (event: GestureResponderEvent) => void | undefined | Promise<any>;
     buttonStyle?: any;
     textStyle?: any;
     text?: string | undefined;
