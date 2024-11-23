@@ -7,7 +7,6 @@ import { globalStyles } from "../styles";
 import LoginModel from "../models/loginModel";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { RootDrawerParamList } from "../types/rootDrawerParamList";
-import { reducer, initialState } from "../reducers/globalReducer";
 
 
 export default function LoginScreen() {
@@ -25,7 +24,6 @@ export default function LoginScreen() {
     const onClickLoginButton = async function(e: any): Promise<void> {
         if (enableLogin) {
             await authService.login(details, dispatch);
-            console.log(state);
         }
     }
 
