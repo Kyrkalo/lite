@@ -1,5 +1,5 @@
-import { useContext, useEffect, useState } from "react";
-import { TouchableOpacity, View, Text, StyleSheet } from "react-native";
+import { useEffect, useState } from "react";
+import { TouchableOpacity, View, Text } from "react-native";
 import { useAuthService, useGlobalContext } from "../hooks/useServices";
 import PrimaryInput from "../components/PrimaryInput";
 import PrimaryPasswordInput from "../components/PrimaryPasswordInput";

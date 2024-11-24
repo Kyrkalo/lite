@@ -79,3 +79,8 @@ export interface IUserSettings {
     key: string;
     value: string;
 }
+
+export interface ILabel {
+    title?: string;
+    text?: string;
+}

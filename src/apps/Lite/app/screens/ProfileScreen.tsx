@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { ProfileModel } from "../models/profileModel";
 import { ProfileService } from "../services/profileService";
+import Label from "../components/Label";
 
 export default function ProfileScreen() {
 
@@ -28,13 +29,12 @@ export default function ProfileScreen() {
 
   return (
     <View>
-      <Text>Info</Text>
-      <Text>Username</Text>
-      <Text>{profile.userName}</Text>
-      <Text>Email</Text>
-      <Text>{profile.email}</Text>
-      <Text>Phone</Text>
-      <Text>{profile.phone}</Text>
+      <View>
+        <Label key="info" title="Info"></Label>
+        <Label key="username" title="Username" text={profile.userName}></Label>
+        <Label key="email" title="Email" text={profile.email}></Label>
+        <Label key="phone" title="Phone" text={profile.phone}></Label>
+      </View>
     </View>
   );
 }
