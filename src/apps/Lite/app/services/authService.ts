@@ -33,7 +33,6 @@ export class AuthService extends HttpInterceptor {
                 return true;
             }
         } catch (error) {
-            console.error("Login error:", error);
             return false;
         }
     }

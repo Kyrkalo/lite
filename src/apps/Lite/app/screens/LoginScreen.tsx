@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { TouchableOpacity, View, Text, StyleSheet } from "react-native";
 import { useAuthService, useGlobalContext } from "../hooks/useServices";
 import PrimaryInput from "../components/PrimaryInput";
@@ -14,8 +14,11 @@ export default function LoginScreen() {
     const navigation = useNavigation<NavigationProp<RootDrawerParamList, 'Login'>>();
 
     const [details, setDetails] = useState<LoginModel>({ username: '', password: ''});
-
-    const enableLogin = details.username?.trim() != '' && details.password?.trim() != '';
+    const [enableLogin, setEnableLogin] = useState(false);
+    
+    useEffect(() => {
+        setEnableLogin(details.username?.trim() != '' && details.password?.trim() != '');
+    }, [details.username, details.password]);
 
     const authService = useAuthService();
 
@@ -23,7 +26,9 @@ export default function LoginScreen() {
 
     const onClickLoginButton = async function(e: any): Promise<void> {
         if (enableLogin) {
+            setEnableLogin(e => e = false);        
             await authService.login(details, dispatch);
+            setEnableLogin(e => e = true);  
         }
     }
 
