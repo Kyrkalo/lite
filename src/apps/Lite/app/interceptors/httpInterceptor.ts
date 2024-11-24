@@ -17,7 +17,7 @@ export default class HttpInterceptor {
     private onRequest(config: InternalAxiosRequestConfig): InternalAxiosRequestConfig {
         const token = SecureStore.getItem('accessToken');
         if (token) {
-            config.headers?.setAuthorization(`$Bearer ${token}`);
+            config.headers?.setAuthorization(`Bearer ${token}`);
         }
         return config;
     }

@@ -43,9 +43,11 @@ const styles = StyleSheet.create({
         padding: 10
     },
     screens: {
-        height: 400,
+        height: 500,
     },
     footer: {
-        marginBottom: 10,
+        marginBottom: 50,
+        marginLeft: 27
+
     }
 });
