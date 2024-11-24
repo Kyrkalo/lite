@@ -17,7 +17,6 @@ export default function Navigations()  {
             console.log(authenticated);
           };
           checkAuthentication();
-          console.log(state.token);
     }, [state?.token]);
 
     return( 
