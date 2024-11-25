@@ -18,7 +18,7 @@ export default function PreLoginScreen() {
     }
 
     return (
-        <View style={globalStyles.container}>
+        <View style={globalStyles.modalContainer}>
             <View style={globalStyles.centeredView}>
                 <Text>Welcome</Text>
                 <PrimaryButton 

@@ -70,7 +70,7 @@ export default function RegisterScreen() {
   };
 
   return (
-    <View style={globalStyles.container}>
+    <View style={globalStyles.modalContainer}>
       <View style={globalStyles.centeredView}>
         {step === 1 && (
           <>

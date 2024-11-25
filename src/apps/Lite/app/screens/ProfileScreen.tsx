@@ -28,13 +28,22 @@ export default function ProfileScreen() {
   }
 
   return (
-    <View>
-      <View>
+    <View style={styles.container}>     
+        <Text>Todo: Photo goes here</Text> 
         <Label key="info" title="Info"></Label>
         <Label key="username" title="Username" text={profile.userName}></Label>
         <Label key="email" title="Email" text={profile.email}></Label>
-        <Label key="phone" title="Phone" text={profile.phone}></Label>
-      </View>
+        <Label key="phone" title="Phone" text={profile.phone}></Label> 
+        <Text>Todo: QR code goes here</Text>
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    justifyContent: 'flex-start', 
+    alignItems: 'baseline', 
+    paddingLeft: 10,
+    paddingTop: 20
+  }
+});

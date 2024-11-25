@@ -1,7 +1,7 @@
-import { TouchableOpacity, StyleSheet, Button, View, Text } from "react-native";
+import { StyleSheet } from "react-native";
 
 export const globalStyles = StyleSheet.create({
-    container: {
+    modalContainer: {
         flex: 1,
         justifyContent: 'center', 
         alignItems: 'center', 
