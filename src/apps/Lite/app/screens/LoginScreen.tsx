@@ -37,7 +37,7 @@ export default function LoginScreen() {
     }
 
     return (
-    <View style={globalStyles.container}>
+    <View style={globalStyles.modalContainer}>
         <View style={globalStyles.centeredView}>
         <PrimaryInput
             value={details.username}
