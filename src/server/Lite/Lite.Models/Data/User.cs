@@ -28,5 +28,5 @@ public class User
     public string Avatar { get; set; }
 
     [BsonElement("settings")]
-    public string Settings { get; set; }
+    public Settings Settings { get; set; }
 }
