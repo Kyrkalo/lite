@@ -2,4 +2,5 @@
 
 public class SettingsDto
 {
+    public bool UseLocalStorage { get; set; }
 }

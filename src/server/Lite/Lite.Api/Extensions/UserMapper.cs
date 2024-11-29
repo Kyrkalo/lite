@@ -11,7 +11,7 @@ public static class UserMapper
         if (user == null)
             return null;
 
-        return new AuthUserDto()
+        return new AuthUserDto
         {
             UserName = user.UserName,
             Email = user.Email,
@@ -24,7 +24,7 @@ public static class UserMapper
         if (user == null)
             return null;
 
-        return new User()
+        return new User
         {
             UserName = user.UserName,
             Email = user.Email,
@@ -37,13 +37,18 @@ public static class UserMapper
         if (user == null)
             return null;
 
-        return new UserDto()
+        return new UserDto
         {
             UserName = user.UserName,
             Email = user.Email,
             Phone = user.Phone,
             Avatar = user.Avatar,
-        };
+            Settings = new SettingsDto
+            { 
+                UseLocalStorage = user.Settings.UseLocalStorage
+            },
+            Contacts = user.Contacts.Select(x => new ContactDto() { Photo = x.Photo, UserName = x.UserName })
+        }; 
     }
 
     public static User ToUser(this UserDto user)
@@ -51,12 +56,17 @@ public static class UserMapper
         if (user == null)
             return null;
 
-        return new User()
+        return new User
         {
             UserName = user.UserName,
             Email = user.Email,
             Phone = user.Phone,
             Avatar = user.Avatar,
+            Settings = new Settings
+            {
+                UseLocalStorage = user.Settings.UseLocalStorage
+            },
+            Contacts = user.Contacts.Select(x => new Contact() { Photo = x.Photo, UserName = x.UserName }).ToList()
         };
     }
 }

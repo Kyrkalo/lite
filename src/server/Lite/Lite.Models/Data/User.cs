@@ -29,4 +29,7 @@ public class User
 
     [BsonElement("settings")]
     public Settings Settings { get; set; }
+
+    [BsonElement("contacts")]
+    public List<Contact> Contacts { get; set; }
 }
