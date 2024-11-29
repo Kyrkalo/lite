@@ -4,7 +4,7 @@ import { useAuthService, useGlobalContext } from "../hooks/useServices";
 import PrimaryInput from "../components/PrimaryInput";
 import PrimaryPasswordInput from "../components/PrimaryPasswordInput";
 import { globalStyles } from "../styles";
-import LoginModel from "../models/loginModel";
+import ILogin from "../models/ILogin";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { RootDrawerParamList } from "../types/rootDrawerParamList";
 
@@ -13,7 +13,7 @@ export default function LoginScreen() {
 
     const navigation = useNavigation<NavigationProp<RootDrawerParamList, 'Login'>>();
 
-    const [details, setDetails] = useState<LoginModel>({ username: '', password: ''});
+    const [details, setDetails] = useState<ILogin>({ username: '', password: ''});
     const [enableLogin, setEnableLogin] = useState(false);
     
     useEffect(() => {

@@ -1,7 +1,7 @@
 import * as SecureStore from 'expo-secure-store';
 import HttpInterceptor from '../interceptors/httpInterceptor';
 import appConfig from './config';
-import LoginModel from '../models/loginModel';
+import ILogin from '../models/ILogin';
 import RegisterModel from '../models/registerModel';
 import { Dispatch } from 'react';
 import { ActionType } from '../types/actionTypes';
@@ -13,7 +13,7 @@ export class AuthService extends HttpInterceptor {
         super(appConfig.api);
     }
 
-    public async login(loginModel: LoginModel, dispatch: Dispatch<any>): Promise<boolean | undefined> {
+    public async login(loginModel: ILogin, dispatch: Dispatch<any>): Promise<boolean | undefined> {
         try {
             const instance = this.getInstance();
             const response = await instance.post('api/auth/login', loginModel);

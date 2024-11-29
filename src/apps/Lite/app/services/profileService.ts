@@ -1,5 +1,5 @@
 import HttpInterceptor from "../interceptors/httpInterceptor";
-import { ProfileModel } from "../models/profileModel";
+import { IUser } from "../models/IUser";
 import appConfig from "./config";
 
 export class ProfileService extends HttpInterceptor {
@@ -8,10 +8,10 @@ export class ProfileService extends HttpInterceptor {
         super(appConfig.api);
     }
     
-    public async get(): Promise<ProfileModel> {
-        var profile: ProfileModel = { };    
+    public async get(): Promise<IUser> {
+        var profile: IUser = { };    
         try{
-            var response = await this.getInstance().get<ProfileModel>('api/user');            
+            var response = await this.getInstance().get<IUser>('api/user');            
             if (response.status === 200 && response.data) { 
                 profile = response.data;
             }
@@ -21,9 +21,9 @@ export class ProfileService extends HttpInterceptor {
         return profile;
     }
 
-    public async update(data: ProfileModel): Promise<any> {
+    public async update(data: IUser): Promise<any> {
         let instance = this.getInstance();
-        var response = await instance.post<ProfileModel>('api/user', data);
+        var response = await instance.post<IUser>('api/user', data);
         if (response.status === 200 && response.data) { }        
     }
 }
