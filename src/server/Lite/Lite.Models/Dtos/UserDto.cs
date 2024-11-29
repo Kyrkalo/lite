@@ -7,4 +7,5 @@ public class UserDto
     public string Phone { get; set; }
     public SettingsDto Settings { get; set; }
     public string Avatar { get; set; }
+    public IEnumerable<ContactDto> Contacts { get; set; }
 }
