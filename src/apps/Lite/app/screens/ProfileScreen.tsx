@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
-import { ProfileModel } from "../models/profileModel";
+import { IUser } from "../models/IUser";
 import { ProfileService } from "../services/profileService";
 import Label from "../components/Label";
 
 export default function ProfileScreen() {
 
-  const [profile, setProfile] = useState<ProfileModel>({
+  const [profile, setProfile] = useState<IUser>({
     email: "",
     phone: "",
     userName: "",
@@ -49,6 +49,7 @@ const styles = StyleSheet.create({
     alignItems: 'center', 
     paddingVertical: 20,
     alignSelf: 'center',
+    verticalAlign: 'middle'
   },
   avatar: {
     height:80,
