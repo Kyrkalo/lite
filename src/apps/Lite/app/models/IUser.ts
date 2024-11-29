@@ -1,3 +1,4 @@
+import IContact from "./IContacts";
 import ISettings from "./ISettings";
 
 export default interface IUser {
@@ -6,4 +7,5 @@ export default interface IUser {
     email?: string | undefined;
     phone?: string | undefined;
     settings?: ISettings |undefined;
+    contacts?: IContact[];
 }
