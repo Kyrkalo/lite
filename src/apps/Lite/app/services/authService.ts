@@ -2,7 +2,7 @@ import * as SecureStore from 'expo-secure-store';
 import HttpInterceptor from '../interceptors/httpInterceptor';
 import appConfig from './config';
 import ILogin from '../models/ILogin';
-import IRegister from '../models/registerModel';
+import IRegister from '../models/IRegister';
 import { Dispatch } from 'react';
 import { ActionType } from '../types/actionTypes';
 import { Token } from '../interfaces/props';
