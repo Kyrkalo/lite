@@ -84,3 +84,9 @@ export interface ILabel {
     title?: string;
     text?: string;
 }
+
+export interface IToogle {
+    title?: string;
+    value?: boolean;
+    onChange?: (value: any) => void | undefined;
+}
