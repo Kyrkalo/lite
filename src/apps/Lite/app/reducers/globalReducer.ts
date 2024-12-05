@@ -9,7 +9,7 @@ export const initialState: State = {
 };
 
 export const reducer = (state: State = initialState, action: Action): State => {
-    console.log(1);
+    
     switch (action.type) {
         case ActionType.ADD_USER:
             return {

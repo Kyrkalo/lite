@@ -49,3 +49,8 @@ yarn-error.*
 /src/server/Lite/Lite.Api/obj
 /src/apps/Lite/%ProgramData%/Microsoft/Windows/UUS/State/_active.uusver
 /src/server/Lite/Lite.Contracts/bin/Debug/net8.0
+/src/apps/Lite/android
+/src/server/Lite/Lite.Models/bin/Release/net8.0
+/src/server/Lite/Lite.Models/obj
+/src/server/Lite/Lite.Contracts/bin/Release/net8.0
+/src/server/Lite/Lite.Contracts/obj

@@ -15,7 +15,7 @@ function PrimaryEmailInput(props: InputProps, ref: any) {
   const validateEmail = (): boolean => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const valid = emailRegex.test(props.value || "");
-    console.log(props.value)
+    
     if (!valid) {
       setInputError((prev) => prev = props.error || "Is required.");
     } else {

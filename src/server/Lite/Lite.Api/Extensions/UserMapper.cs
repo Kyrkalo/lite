@@ -43,13 +43,18 @@ public static class UserMapper
             Email = user.Email,
             Phone = user.Phone,
             Avatar = user.Avatar,
-            Settings = new SettingsDto
-            { 
+            Settings = user.Settings == null ? null : new SettingsDto
+            {
                 UseLocalStorage = user.Settings.UseLocalStorage
             },
-            Contacts = user.Contacts.Select(x => new ContactDto() { Photo = x.Photo, UserName = x.UserName })
-        }; 
+            Contacts = user.Contacts?.Select(x => new ContactDto
+            {
+                Photo = x.Photo,
+                UserName = x.UserName
+            })
+        };
     }
+
 
     public static User ToUser(this UserDto user)
     {
@@ -64,7 +69,7 @@ public static class UserMapper
             Avatar = user.Avatar,
             Settings = new Settings
             {
-                UseLocalStorage = user.Settings.UseLocalStorage
+                UseLocalStorage = user.Settings?.UseLocalStorage
             },
             Contacts = user.Contacts.Select(x => new Contact() { Photo = x.Photo, UserName = x.UserName }).ToList()
         };

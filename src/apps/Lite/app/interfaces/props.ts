@@ -1,6 +1,7 @@
 import { ReturnKeyTypeOptions } from "react-native";
 import { Action, ActionType } from "../types/actionTypes";
 import { Dispatch } from "react";
+import IUser from "../models/IUser";
 
 export interface InputProps {
     name?: string | undefined;
@@ -30,27 +31,20 @@ export interface PasswordProps {
     confirm?: boolean | undefined;
 }
 
-export interface User {
-    avatar?: string | undefined;
-    username?: string | undefined;
-    email?: string | undefined;
-    phone?: string | undefined;
-}
-
 export interface Token {
     access?: string | null;
     refresh?: string | null;
 }
 
 export interface State {
-    user?: User | null;
+    user?: IUser | null;
     token: Token | null;
     isLoggedIn: boolean;
 }
 
 export interface AddUserAction {
     type: ActionType.ADD_USER;
-    payload: User;
+    payload: IUser;
 }
 
 export interface ClearUserAction { 

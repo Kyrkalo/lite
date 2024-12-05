@@ -1,17 +1,20 @@
 import { useEffect, useState } from "react";
 import { TouchableOpacity, View, Text } from "react-native";
-import { useAuthService, useGlobalContext } from "../hooks/useServices";
+import { useAuthService, useGlobalContext, userProfileService } from "../hooks/useServices";
 import PrimaryInput from "../components/PrimaryInput";
 import PrimaryPasswordInput from "../components/PrimaryPasswordInput";
 import { globalStyles } from "../styles";
 import ILogin from "../models/ILogin";
-import { NavigationProp, useNavigation } from "@react-navigation/native";
-import { RootDrawerParamList } from "../types/rootDrawerParamList";
+// import { NavigationProp, useNavigation } from "@react-navigation/native";
+// import { RootDrawerParamList } from "../types/rootDrawerParamList";
 
 
 export default function LoginScreen() {
 
-    const navigation = useNavigation<NavigationProp<RootDrawerParamList, 'Login'>>();
+    const authService = useAuthService();
+    const { state, dispatch} = useGlobalContext();
+    const profileService = userProfileService();
+    //const navigation = useNavigation<NavigationProp<RootDrawerParamList, 'Login'>>();
 
     const [details, setDetails] = useState<ILogin>({ username: '', password: ''});
     const [enableLogin, setEnableLogin] = useState(false);
@@ -20,15 +23,16 @@ export default function LoginScreen() {
         setEnableLogin(details.username?.trim() != '' && details.password?.trim() != '');
     }, [details.username, details.password]);
 
-    const authService = useAuthService();
-
-    const {state, dispatch} = useGlobalContext();
 
     const onClickLoginButton = async function(e: any): Promise<void> {
         if (enableLogin) {
             setEnableLogin(e => e = false);        
-            await authService.login(details, dispatch);
-            setEnableLogin(e => e = true);  
+            const isLoggedIn = await authService.login(details, dispatch);
+            if (isLoggedIn) {
+                const user = await profileService.get(dispatch);
+
+            }
+            setEnableLogin(e => e = true);
         }
     }
 

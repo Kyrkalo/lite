@@ -3,7 +3,7 @@ import * as SecureStore from 'expo-secure-store';
 
 export default class HttpInterceptor {
 
-    private axiosInstance: AxiosInstance;
+    protected axiosInstance: AxiosInstance;
 
     constructor(url: string) 
     {
@@ -36,5 +36,5 @@ export default class HttpInterceptor {
         return Promise.reject(error);
     }
 
-    public getInstance = () => this.axiosInstance;
+    public getInstance = (): AxiosInstance => this.axiosInstance;
 }

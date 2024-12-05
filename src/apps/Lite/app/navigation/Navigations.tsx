@@ -14,7 +14,6 @@ export default function Navigations()  {
         const checkAuthentication = async () => {
             const authenticated = await authService.isAuthenticated();
             setIsAuthenticated(authenticated);
-            console.log(authenticated);
           };
           checkAuthentication();
     }, [state?.token]);
