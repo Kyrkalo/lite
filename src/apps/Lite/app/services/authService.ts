@@ -5,7 +5,6 @@ import ILogin from '../models/ILogin';
 import IRegister from '../models/IRegister';
 import { Dispatch } from 'react';
 import { ActionType } from '../types/actionTypes';
-import { Token } from '../interfaces/props';
 
 export class AuthService extends HttpInterceptor {
   
@@ -24,7 +23,7 @@ export class AuthService extends HttpInterceptor {
 
                 await SecureStore.setItemAsync('accessToken', accessToken);
                 await SecureStore.setItemAsync('refreshToken', refreshToken);
-                console.log(dispatch);
+                
                 dispatch({
                     type: ActionType.SET_TOKEN,
                     payload: { access: accessToken, refresh: refreshToken }
@@ -33,6 +32,7 @@ export class AuthService extends HttpInterceptor {
                 return true;
             }
         } catch (error) {
+            
             return false;
         }
     }

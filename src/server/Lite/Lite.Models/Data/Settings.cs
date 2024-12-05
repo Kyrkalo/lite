@@ -2,5 +2,5 @@
 
 public class Settings
 {
-    public bool UseLocalStorage { get; set; }
+    public bool? UseLocalStorage { get; set; }
 }
